@@ -1,6 +1,6 @@
 #include <stdint.h>
 #include <stddef.h>
-#include <assert.h>
+#define static_assert _Static_assert
 
 struct graphics_engine_a {
   volatile uint32_t DISPCNT;

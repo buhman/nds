@@ -42,7 +42,7 @@ def c_asserts(registers):
 
 print('#include <stdint.h>')
 print('#include <stddef.h>')
-print('#include <assert.h>')
+print('#define static_assert _Static_assert')
 print('')
 print(f'struct {struct_name} {{')
 for line in c_source(registers):

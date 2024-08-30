@@ -1,0 +1,349 @@
+0x000 DISPCNT 55 2D Graphics Engine A display control
+0x002
+0x004 DISPSTAT 51 Display status
+0x006 VCOUNT 53 V count comparison
+0x008 BG0CNT 81 2D Graphics Engine A BG0 control
+0x00a BG1CNT 81 2D Graphics Engine A BG1 control
+0x00c BG2CNT 83 2DGraphics Engine A BG2 control
+0x00e BG3CNT 83 2D Graphics Engine A BG3 control
+0x010 BG0HOFS 105 2D Graphics Engine A BG0 display H offset
+0x012 BG0VOFS 105 2D Graphics Engine A BG0 display V offset
+0x014 BG1HOFS 105 2D Graphics Engine A BG1 display H offset
+0x016 BG1VOFS 105 2D Graphics Engine A BG1 display V offset
+0x018 BG2HOFS 105 2D Graphics Engine A BG2 display H offset
+0x01a BG2VOFS 105 2D Graphics Engine A BG2 display V offset
+0x01c BG3HOFS 105 2D Graphics Engine A BG3 display H offset
+0x01e BG3VOFS 105 2D Graphics Engine A BG3 display V offset
+0x020 BG2PA 108 2D Graphics Engine A BG2 affine transformation parameters (same line X-direction reference shift dx)
+0x022 BG2PB 108 2D Graphics Engine A BG2 affine transformation parameters (next line X-direction reference shift dmx)
+0x024 BG2PC 108 2D Graphics Engine A BG2 affine transformation parameters (same line Y-direction reference shift dy)
+0x026 BG2PD 108 2D Graphics Engine A BG2 affine transformation parameters (next line Y-direction reference shift dmy)
+0x028 BG2X 107 2D Graphics Engine A BG2 reference start point (x coordinate)
+0x02a
+0x02c BG2Y 107 2D Graphics Engine A BG2 reference start point (y coordinate)
+0x02e
+0x030 BG3PA 108 2D Graphics Engine A BG3 affine transformation parameters (same line X-direction reference shift dx)
+0x032 BG3PB 108 2D Graphics Engine A BG3 affine transformation parameters (next line X-direction reference shift dmx)
+0x034 BG3PC 108 2D Graphics Engine A BG3 affine transformation parameters (same line Y-direction reference shift dy)
+0x036 BG3PD 108 2D Graphics Engine A BG3 affine transformation parameters (next line Y-direction reference shift dmy)
+0x038 BG3X 107 2D Graphics Engine A BG3 reference start point (x coordinate)
+0x03a
+0x03c BG3Y 107 2D Graphics Engine A BG3 reference start point (y coordinate)
+0x03e
+0x040 WIN0H 144 2D Graphics Engine A window 0 H size
+
+0x042 WIN1H 144 2D Graphics Engine A window 1 H size
+0x044 WIN0V 144 2D Graphics Engine A window 0 V size
+0x046 WIN1V 144 2D Graphics Engine A window 1 V size
+0x048 WININ 143 2D Graphics Engine A window inside
+0x04a WINOUT 143 2D Graphics Engine A window outside
+0x04c MOSAIC 151 2D Graphics Engine A mosaic size
+0x050 BLDCNT 147 2D Graphics Engine A color special effects
+0x052 BLDALPHA 149 2D Graphics Engine A alpha blending factor
+0x054 BLDY 150 2D Graphics Engine A brightness change factor
+0x060 DISP3DCNT 155 3D display control
+0x064 DISPCAPCNT 67 Display capture
+0x066
+0x068 DISP_MMEM_FIFO 65 Main memory display FIFO
+0x06a
+0x06c MASTER_BRIGHT 71 Image output A master brightness
+
+0x0b0 DMA0SAD 273 DMA0 source address
+0x0b2
+0x0b4 DMA0DAD 273 DMA0 destination address
+0x0b6
+0x0b8 DMA0CNT 274 DMA0 control
+0x0ba
+0x0bc DMA1SAD 273 DMA1 source address
+0x0be
+0x0c0 DMA1DAD 273 DMA1 destination address
+0x0c2
+0x0c4 DMA1CNT 274 DMA1 control
+0x0c6
+0x0c8 DMA2SAD 273 DMA2 source address
+0x0ca
+0x0cc DMA2DAD 273 DMA2 destination address
+0x0ce
+0x0d0 DMA2CNT 274 DMA2 control
+0x0d2
+0x0d4 DMA3SAD 273 DMA3 source address
+0x0d6
+0x0d8 DMA3DAD 273 DMA3 destination address
+0x0da
+0x0dc DMA3CNT 274 DMA3 control
+0x0de
+
+0x100 TM0CNT_L 279 Timer 0 counter
+0x102 TM0CNT_H 279 Timer 0 control
+0x104 TM1CNT_L 280 Timer 1 counter
+0x106 TM1CNT_H 280 Timer 1 control
+0x108 TM2CNT_L 280 Timer 2 counter
+0x10a TM2CNT_H 280 Timer 2 control
+0x10c TM3CNT_L 280 Timer 3 counter
+0x10e TM3CNT_H 280 Timer 3 control
+
+0x130 KEYINPUT 297 Key input
+0x132 KEYCNT 298 Key control
+
+0x204 EXMEMCNT 11 External memory control
+0x208 IME 281 Interrupt master flag
+0x210 IE 282 Interrupt enable flag
+0x212
+0x214 IF 283 Interrupt request flag
+0x216
+
+0x240 VRAMCNT 20 RAM bank control 0
+0x242
+0x244 WVRAMCNT 24 RAM bank control 1
+0x246
+0x248 VRAM_HI_CNT 27 RAM bank control 2
+
+0x280 DIVCNT 291 Divider control
+0x290 DIV_NUMER 291 Numerator
+0x292
+0x294
+0x296
+0x298 DIV_DENOM 291 Denominator
+0x29a
+0x29c
+0x29e
+0x2a0 DIV_RESULT 291 Quotient
+0x2a2
+0x2a4
+0x2a6
+0x2a8 DIVREM_RESULT 291 Remainder
+0x2aa
+0x2ac
+0x2ae
+0x2b0 SQRTCNT 294 Square root unit control
+0x2b4 SQRT_RESULT 294 Square root unit result
+0x2b6
+0x2b8 SQRT_PARAM 294 Square root unit data
+0x2ba
+0x2bc
+0x2be
+
+0x304 POWCNT 54 Power control
+0x320 RDLINES_COUNT 267 Rendering minimum fill
+
+
+0x330 EDGE_COLOR_0_L 259 Edge marking color (Polygon ID’s 3 upper bits are 000)
+0x332 EDGE_COLOR_0_H 259 Edge marking color (Polygon ID’s 3 upper bits are 001)
+0x334 EDGE_COLOR_1_L 259 Edge marking color (Polygon ID’s 3 upper bits are 010)
+0x336 EDGE_COLOR_1_H 259 Edge marking color (Polygon ID’s 3 upper bits are 011)
+0x338 EDGE_COLOR_2_L 259 Edge marking color (Polygon ID’s 3 upper bits are 100)
+0x33a EDGE_COLOR_2_H 259 Edge marking color (Polygon ID’s 3 upper bits are 101)
+0x33c EDGE_COLOR_3_L 259 Edge marking color (Polygon ID’s 3 upper bits are 110)
+0x33e EDGE_COLOR_3_H 259 Edge marking color (Polygon ID’s 3 upper bits are 111)
+0x340 ALPHA_TEST_REF 258 Alpha test
+
+0x350 CLEAR_COLOR 231 Color buffer initial value
+0x352
+0x354 CLEAR_DEPTH 231 Depth buffer initial value
+0x356 CLRIMAGE_OFFSET 233 Clear image offset
+0x358 FOG_COLOR 260 Fog color
+0x35a
+0x35c FOG_OFFSET 260 Fog offset
+0x360 FOG_TABLE_0_L 261 Fog density table (0, 1)
+0x362 FOG_TABLE_0_H 261 Fog density table (2, 3)
+0x364 FOG_TABLE_1_L 261 Fog density table (4, 5)
+0x366 FOG_TABLE_1_H 261 Fog density table (6, 7)
+
+0x368 FOG_TABLE_2_L 261 Fog density table (8, 9)
+0x36a FOG_TABLE_2_H 261 Fog density table (10, 11)
+0x36c FOG_TABLE_3_L 261 Fog density table (12, 13)
+0x36e FOG_TABLE_3_H 261 Fog density table (14, 15)
+0x370 FOG_TABLE_4_L 261 Fog density table (16, 17)
+0x372 FOG_TABLE_4_H 261 Fog density table (18, 19)
+0x374 FOG_TABLE_5_L 261 Fog density table (20, 21)
+0x376 FOG_TABLE_5_H 261 Fog density table (22, 23)
+0x378 FOG_TABLE_6_L 261 Fog density table (24, 25)
+0x37a FOG_TABLE_6_H 261 Fog density table (26, 27)
+0x37c FOG_TABLE_7_L 261 Fog density table (28, 29)
+0x37e FOG_TABLE_7_H 261 Fog density table (30, 31)
+0x380 TOON_TABLE_0_L 241 Toon table (RGB conversion value when brightness is 0)
+0x382 TOON_TABLE_0_H 241 Toon table (RGB conversion value when brightness is 1)
+0x384 TOON_TABLE_1_L 241 Toon table (RGB conversion value when brightness is 2)
+0x386 TOON_TABLE_1_H 241 Toon table (RGB conversion value when brightness is 3)
+0x388 TOON_TABLE_2_L 241 Toon table (RGB conversion value when brightness is 4)
+0x38a TOON_TABLE_2_H 241 Toon table (RGB conversion value when brightness is 5)
+0x38c TOON_TABLE_3_L 241 Toon table (RGB conversion value when brightness is 6)
+0x38e TOON_TABLE_3_H 241 Toon table (RGB conversion value when brightness is 7)
+0x390 TOON_TABLE_4_L 241 Toon table (RGB conversion value when brightness is 8)
+0x392 TOON_TABLE_4_H 241 Toon table (RGB conversion value when brightness is 9)
+0x394 TOON_TABLE_5_L 241 Toon table (RGB conversion value when brightness is 10)
+0x396 TOON_TABLE_5_H 241 Toon table (RGB conversion value when brightness is 11)
+0x398 TOON_TABLE_6_L 241 Toon table (RGB conversion value when brightness is 12)
+0x39a TOON_TABLE_6_H 241 Toon table (RGB conversion value when brightness is 13)
+0x39c TOON_TABLE_7_L 241 Toon table (RGB conversion value when brightness is 14)
+0x39e TOON_TABLE_7_H 241 Toon table (RGB conversion value when brightness is 15)
+0x3a0 TOON_TABLE_8_L 241 Toon table (RGB conversion value when brightness is 16)
+0x3a2 TOON_TABLE_8_H 241 Toon table (RGB conversion value when brightness is 17)
+0x3a4 TOON_TABLE_9_L 241 Toon table (RGB conversion value when brightness is 18)
+0x3a6 TOON_TABLE_9_H 241 Toon table (RGB conversion value when brightness is 19)
+0x3a8 TOON_TABLE_10_L 241 Toon table (RGB conversion value when brightness is 20)
+0x3aa TOON_TABLE_10_H 241 Toon table (RGB conversion value when brightness is 21)
+0x3ac TOON_TABLE_11_L 241 Toon table (RGB conversion value when brightness is 22)
+0x3ae TOON_TABLE_11_H 241 Toon table (RGB conversion value when brightness is 23)
+0x3b0 TOON_TABLE_12_L 241 Toon table (RGB conversion value when brightness is 24)
+0x3b2 TOON_TABLE_12_H 241 Toon table (RGB conversion value when brightness is 25)
+0x3b4 TOON_TABLE_13_L 241 Toon table (RGB conversion value when brightness is 26)
+0x3b6 TOON_TABLE_13_H 241 Toon table (RGB conversion value when brightness is 27)
+0x3b8 TOON_TABLE_14_L 241 Toon table (RGB conversion value when brightness is 28)
+0x3ba TOON_TABLE_14_H 241 Toon table (RGB conversion value when brightness is 29)
+0x3bc TOON_TABLE_15_L 241 Toon table (RGB conversion value when brightness is 30)
+0x3be TOON_TABLE_15_H 241 Toon table (RGB conversion value when brightness is 31)
+
+0x400 GXFIFO 168 Geometry command FIFO
+0x402
+
+0x440 MTX_MODE 181 Current matrix mode setting
+0x442
+0x444 MTX_PUSH 186 Push current matrix onto the stack
+0x446
+0x448 MTX_POP 186 Pop current matrix from the stack
+0x44a
+0x44c MTX_STORE 187 Store current matrix in specified position in the stack
+0x44e
+0x450 MTX_RESTORE 187 Read matrix from specified position in the stack
+0x452
+0x454 MTX_IDENTITY 182 Initialize unit matrix
+0x456
+0x458 MTX_LOAD_4x4 182 Set 4x4 matrix
+0x45a
+0x45c MTX_LOAD_4x3 183 Set 4x3 matrix
+0x45e
+0x460 MTX_MULT_4x4 183 Multiply by 4x4 matrix
+0x462
+0x464 MTX_MULT_4x3 183 Multiply by 4x3 matrix
+0x466
+0x468 MTX_MULT_3x3 184 Multiply by 3x3 matrix
+0x46a
+0x46c MTX_SCALE 185 Multiply by the Scale matrix
+0x46e
+0x470 MTX_TRANS 184 Multiply by the Translation matrix
+0x472
+
+0x480 COLOR 201 Vertex color
+0x482
+0x484 NORMAL 202 Normal vector
+0x486
+0x488 TEXCOORD 206 Texture coordinates
+0x48a
+0x48c VTX_16 202 Vertex coordinates
+0x48e
+0x490 VTX_10 203 Vertex coordinates
+0x492
+0x494 VTX_XY 203 Vertex XY coordinates
+0x496
+0x498 VTX_XZ 203 Vertex XZ coordinates
+0x49a
+0x49c VTX_YZ 203 Vertex YZ coordinates
+0x49e
+0x4a0 VTX_DIFF 204 Vertex coordinates difference value specification
+0x4a2
+
+0x4a4 POLYGON_ATTR 196 Polygon-related attribute values
+0x4a6
+0x4a8 TEXIMAGE_PARAM 207 Texture parameters
+0x4aa
+0x4ac TEXPLTT_BASE 212 Texture palette base address
+0x4ae
+0x4c0 DIF_AMB 192 Material’s diffuse and ambient colors
+0x4c2
+0x4c4 SPE_EMI 192 Material’s specular reflection and emitted light colors
+0x4c6
+0x4c8 LIGHT_VECTOR 189 Light direction vector
+0x4ca
+0x4cc LIGHT_COLOR 189 Light color
+0x4ce
+0x4d0 SHININESS 193 Specular reflection shininess table
+0x4d2
+
+0x500 BEGIN_VTXS 200 Vertex list start
+0x502
+0x504 END_VTXS 201 Vertex list end
+0x506
+
+0x540 SWAP_BUFFERS 178 Swap data group
+0x542
+
+0x580 VIEWPORT 180 Viewport
+0x582
+
+0x5c0 BOX_TEST 216 Box test
+0x5c2
+0x5c4 POS_TEST 218 Position coordinate test
+0x5c6
+0x5c8 VEC_TEST 218 Direction vector test
+0x5ca
+
+0x600 GXSTAT 220 Geometry engine status
+0x602
+0x604 LISTRAM_COUNT 222 Polygon list RAM count
+0x606 VTXRAM_COUNT 222 Vertex RAM count
+
+0x610 DISP_1DOT_DEPTH 199 1-dot polygon display boundary depth value
+
+0x620 POS_RESULT_X 218 Result of position coordinate test (clip coordinate X component)
+0x622
+0x624 POS_RESULT_Y 218 Result of position coordinate test (clip coordinate Y component)
+0x626
+0x628 POS_RESULT_Z 218 Result of position coordinate test (clip coordinate Z component)
+0x62a
+0x62c POS_RESULT_W 218 Result of position coordinate test (clip coordinate W component)
+0x62e
+0x630 VEC_RESULT_X 219 Result of direction vector test (X component)
+0x632 VEC_RESULT_Y 219 Result of direction vector test (Y component)
+0x634 VEC_RESULT_Z 219 Result of direction vector test (Z component)
+
+0x640 CLIPMTX_RESULT_0 188 Current clip coordinate matrix (element m0)
+0x642
+0x644 CLIPMTX_RESULT_1 188 Current clip coordinate matrix (element m1)
+0x646
+0x648 CLIPMTX_RESULT_2 188 Current clip coordinate matrix (element m2)
+0x64a
+0x64c CLIPMTX_RESULT_3 188 Current clip coordinate matrix (element m3)
+0x64e
+0x650 CLIPMTX_RESULT_4 188 Current clip coordinate matrix (element m4)
+0x652
+0x654 CLIPMTX_RESULT_5 188 Current clip coordinate matrix (element m5)
+0x656
+0x658 CLIPMTX_RESULT_6 188 Current clip coordinate matrix (element m6)
+0x65a
+0x65c CLIPMTX_RESULT_7 188 Current clip coordinate matrix (element m7)
+0x65e
+0x660 CLIPMTX_RESULT_8 188 Current clip coordinate matrix (element m8)
+0x662
+0x664 CLIPMTX_RESULT_9 188 Current clip coordinate matrix (element m9)
+0x666
+0x668 CLIPMTX_RESULT_10 188 Current clip coordinate matrix (element m10)
+0x66a
+0x66c CLIPMTX_RESULT_11 188 Current clip coordinate matrix (element m11)
+0x66e
+0x670 CLIPMTX_RESULT_12 188 Current clip coordinate matrix (element m12)
+0x672
+0x674 CLIPMTX_RESULT_13 188 Current clip coordinate matrix (element m13)
+0x676
+0x678 CLIPMTX_RESULT_14 188 Current clip coordinate matrix (element m14)
+0x67a
+0x67c CLIPMTX_RESULT_15 188 Current clip coordinate matrix (element m15)
+0x67e
+0x680 VECMTX_RESULT_0 188 Current direction vector matrix (element m0)
+0x682
+0x684 VECMTX_RESULT_1 188 Current direction vector matrix (element m1)
+0x686
+0x688 VECMTX_RESULT_2 188 Current direction vector matrix (element m2)
+0x68a
+0x68c VECMTX_RESULT_3 188 Current direction vector matrix (element m3)
+0x68e
+0x690 VECMTX_RESULT_4 188 Current direction vector matrix (element m4)
+0x692
+0x694 VECMTX_RESULT_5 188 Current direction vector matrix (element m5)
+0x696
+0x698 VECMTX_RESULT_6 188 Current direction vector matrix (element m6)
+0x69a
+0x69c VECMTX_RESULT_7 188 Current direction vector matrix (element m7)
+0x69e
+0x6a0 VECMTX_RESULT_8 188 Current direction vector matrix (element m8)
+0x6a2

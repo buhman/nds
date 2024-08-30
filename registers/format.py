@@ -38,7 +38,7 @@ def c_source(registers):
 
 def c_asserts(registers):
     for register in registers:
-        yield f"static_assert((offsetof (struct {struct_name}, {register.name})) == {register.offset});"
+        yield f"static_assert((offsetof (struct {struct_name}, {register.name})) == 0x{register.offset:03x});"
 
 print('#include <stdint.h>')
 print('#include <stddef.h>')

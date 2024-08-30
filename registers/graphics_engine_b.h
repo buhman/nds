@@ -79,3 +79,5 @@ static_assert((offsetof (struct graphics_engine_b, BLDCNT)) == 0x050);
 static_assert((offsetof (struct graphics_engine_b, BLDALPHA)) == 0x052);
 static_assert((offsetof (struct graphics_engine_b, BLDY)) == 0x054);
 static_assert((offsetof (struct graphics_engine_b, MASTER_BRIGHT)) == 0x06c);
+
+extern struct graphics_engine_b graphics_engine_b __asm("graphics_engine_b");

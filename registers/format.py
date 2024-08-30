@@ -50,3 +50,5 @@ for line in c_source(registers):
 print('};')
 for line in c_asserts(registers):
     print(line)
+print()
+print(f'extern struct {struct_name} {struct_name} __asm("{struct_name}");')

@@ -466,3 +466,5 @@ static_assert((offsetof (struct graphics_engine_a, VECMTX_RESULT_5)) == 0x694);
 static_assert((offsetof (struct graphics_engine_a, VECMTX_RESULT_6)) == 0x698);
 static_assert((offsetof (struct graphics_engine_a, VECMTX_RESULT_7)) == 0x69c);
 static_assert((offsetof (struct graphics_engine_a, VECMTX_RESULT_8)) == 0x6a0);
+
+extern struct graphics_engine_a graphics_engine_a __asm("graphics_engine_a");

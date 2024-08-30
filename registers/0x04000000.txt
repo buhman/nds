@@ -4,7 +4,7 @@
 0x006 VCOUNT 53 V count comparison
 0x008 BG0CNT 81 2D Graphics Engine A BG0 control
 0x00a BG1CNT 81 2D Graphics Engine A BG1 control
-0x00c BG2CNT 83 2DGraphics Engine A BG2 control
+0x00c BG2CNT 83 2D Graphics Engine A BG2 control
 0x00e BG3CNT 83 2D Graphics Engine A BG3 control
 0x010 BG0HOFS 105 2D Graphics Engine A BG0 display H offset
 0x012 BG0VOFS 105 2D Graphics Engine A BG0 display V offset

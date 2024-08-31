@@ -2,6 +2,7 @@ import sys
 from parse import register_descriptions
 
 struct_name = sys.argv[2]
+struct_size = eval(sys.argv[3])
 
 with open(sys.argv[1]) as f:
     buf = f.read()
@@ -36,10 +37,19 @@ def c_source(registers):
 
         struct_offset += register.size
 
+    global struct_size
+    if struct_size == 0:
+        struct_size = (struct_offset + 3) // 4 * 4
+    if struct_offset != struct_size:
+        assert struct_size > struct_offset, (hex(struct_offset), hex(struct_size))
+        yield f"volatile uint8_t _pad{pad_ix}[{struct_size - struct_offset}];"
+
 def c_asserts(registers):
     for register in registers:
         yield f"static_assert((offsetof (struct {struct_name}, {register.name})) == 0x{register.offset:03x});"
 
+print("#pragma once")
+print()
 print('#include <stdint.h>')
 print('#include <stddef.h>')
 print('#define static_assert _Static_assert')
@@ -50,5 +60,4 @@ for line in c_source(registers):
 print('};')
 for line in c_asserts(registers):
     print(line)
-print()
-print(f'extern struct {struct_name} {struct_name} __asm("{struct_name}");')
+print(f"static_assert((sizeof (struct {struct_name})) == {hex(struct_size)});")

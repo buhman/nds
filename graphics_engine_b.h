@@ -1,3 +1,5 @@
+#pragma once
+
 #include <stdint.h>
 #include <stddef.h>
 #define static_assert _Static_assert
@@ -42,6 +44,7 @@ struct graphics_engine_b {
   volatile uint16_t BLDY;
   volatile uint8_t _pad2[22];
   volatile uint16_t MASTER_BRIGHT;
+  volatile uint8_t _pad3[2];
 };
 static_assert((offsetof (struct graphics_engine_b, DISPCNT)) == 0x000);
 static_assert((offsetof (struct graphics_engine_b, BG0CNT)) == 0x008);
@@ -79,5 +82,4 @@ static_assert((offsetof (struct graphics_engine_b, BLDCNT)) == 0x050);
 static_assert((offsetof (struct graphics_engine_b, BLDALPHA)) == 0x052);
 static_assert((offsetof (struct graphics_engine_b, BLDY)) == 0x054);
 static_assert((offsetof (struct graphics_engine_b, MASTER_BRIGHT)) == 0x06c);
-
-extern struct graphics_engine_b graphics_engine_b __asm("graphics_engine_b");
+static_assert((sizeof (struct graphics_engine_b)) == 0x70);

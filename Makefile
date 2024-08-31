@@ -13,7 +13,9 @@ MAIN_OBJ = \
 	start.o \
 	main.o \
 	res/player.data.o \
-	res/player.data.pal.o
+	res/player.data.pal.o \
+	res/bowser.data.o \
+	res/bowser.data.pal.o
 
 main.elf: $(MAIN_OBJ)
 

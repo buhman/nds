@@ -3,13 +3,13 @@
 
 #define static_assert _Static_assert
 
-struct obj {
+struct oam_obj {
   volatile uint16_t attr[3];
   volatile uint16_t _0;
 };
-static_assert((sizeof (struct obj)) == 8);
+static_assert((sizeof (struct oam_obj)) == 8);
 
-struct param {
+struct oam_param {
   volatile uint16_t _0[3];
   volatile uint16_t pa;
   volatile uint16_t _1[3];
@@ -19,11 +19,11 @@ struct param {
   volatile uint16_t _3[3];
   volatile uint16_t pd;
 };
-static_assert((sizeof (struct param)) == 32);
+static_assert((sizeof (struct oam_param)) == 32);
 
 union oam {
-  struct obj obj[128];
-  struct param param[32];
+  struct oam_obj obj[128];
+  struct oam_param param[32];
 };
 static_assert((sizeof (union oam)) == 0x400);
 

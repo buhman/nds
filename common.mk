@@ -14,8 +14,8 @@ CFLAGS += -Wno-error=unused-variable
 
 CXXFLAGS += -fno-exceptions -fno-non-call-exceptions -fno-rtti -fno-threadsafe-statics
 
-# --print-gc-sections
-LDFLAGS += --gc-sections --no-warn-rwx-segment --print-memory-usage --entry=_start --orphan-handling=error
+#
+LDFLAGS += --gc-sections --no-warn-rwx-segment --print-memory-usage --entry=_start --orphan-handling=error --print-gc-sections
 
 DEPFLAGS = -MMD -MP
 
@@ -40,7 +40,7 @@ as_obj_binary = _binary_$(subst .,_,$(subst /,_,$(1)))
 define BUILD_BINARY_H
 	@echo gen $@
 	@echo '#pragma once' > $@
-	@echo '#include <cstdint>' >> $@
+	@echo '#include <stdint.h>' >> $@
 	@echo 'extern uint32_t $(call as_obj_binary,$<)_start __asm("$(call as_obj_binary,$<)_start");' >> $@
 	@echo 'extern uint32_t $(call as_obj_binary,$<)_end __asm("$(call as_obj_binary,$<)_end");' >> $@
 	@echo 'extern uint32_t $(call as_obj_binary,$<)_size __asm("$(call as_obj_binary,$<)_size");' >> $@

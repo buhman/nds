@@ -19,15 +19,15 @@ __bss_link_start = ADDR(.bss);
 __bss_link_end = ADDR(.bss) + SIZEOF(.bss);
 
 /* header symbols */
-_arm9_offset = LOADADDR(.text.arm9);
-_arm9_entry = ADDR(.text.arm9);
-_arm9_addr = ADDR(.text.arm9);
-_arm9_size = SIZEOF(.text.arm9);
+_arm9_offset = LOADADDR(.text);
+_arm9_entry = ADDR(.text);
+_arm9_addr = ADDR(.text);
+_arm9_size = SIZEOF(.text) + SIZEOF(.data) + SIZEOF(.rodata) + SIZEOF(.ctors);
 
 _arm7_offset = LOADADDR(.text.arm7);
 _arm7_entry = ADDR(.text.arm7);
 _arm7_addr = ADDR(.text.arm7);
 _arm7_size = SIZEOF(.text.arm7);
 
-_rom_size = SIZEOF(.text.header) + SIZEOF(.text.arm9) + SIZEOF(.text.arm7);
+_rom_size = SIZEOF(.text.header) + SIZEOF(.text) + SIZEOF(.data) + SIZEOF(.rodata) + SIZEOF(.ctors) + SIZEOF(.text.arm7);
 _header_size = SIZEOF(.text.header);

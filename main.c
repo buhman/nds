@@ -1,6 +1,7 @@
 #include "io_registers.h"
 #include "bits.h"
 #include "bg.h"
+#include "palette.h"
 
 #include "res/player.h"
 #include "res/player.pal.h"
@@ -41,9 +42,8 @@ void main()
 
   // palette ram
   for (int i = 0; i < 15; i++) {
-    ((volatile uint16_t *)(0x05000000))[i] = rgb555(&pal[i * 3]);
+    palette_ram.a.bg.palette[0].color[i] = rgb555(&pal[i * 3]);
   }
-
 
   const uint8_t * data = (const uint8_t *)&_binary_res_player_data_start;
 

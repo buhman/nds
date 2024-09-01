@@ -398,12 +398,21 @@ void main()
   // 2d graphics engine B OBJ
   io_registers.a.VRAM_HI_CNT = (1 << 15) | (0b10 << 8);
 
+  io_registers.a.POWCNT = 0
+    | POWCNT__lcd_output_destination__a_to_upper__b_to_lower
+    | POWCNT__2d_graphics_engine_b__enable
+    | POWCNT__geometry_engine__enable
+    | POWCNT__rendering_engine__enable
+    | POWCNT__2d_graphics_engine_a__enable
+    | POWCNT__lcd__enable;
+
   io_registers.a.DISPCNT = 0
     | DISPCNT__bg_screen_base_offset(0)
     | DISPCNT__bg_character_base_offset(0)
     | DISPCNT__display_mode__graphics_display
     | DISPCNT__bg0__enable
-    | DISPCNT__display_selection_for_bg0__2d_graphics
+    //| DISPCNT__display_selection_for_bg0__2d_graphics
+    | DISPCNT__display_selection_for_bg0__3d_graphics
     | DISPCNT__bg_mode__text0_text1_text2_text3
     ;
 
@@ -475,28 +484,28 @@ void main()
   for (int c_y = 0; c_y < 8; c_y++) {
     for (int c_x = 0; c_x < 8; c_x++) {
       for (int y = 0; y < 8; y++) {
-	int abs_y = c_y * 8 + y;
-	int abs_x = c_x * 8;
-	int origin = abs_y * 64 + abs_x;
+        int abs_y = c_y * 8 + y;
+        int abs_x = c_x * 8;
+        int origin = abs_y * 64 + abs_x;
 
-	uint8_t a = b_data[origin + 7];
-	uint8_t b = b_data[origin + 6];
-	uint8_t c = b_data[origin + 5];
-	uint8_t d = b_data[origin + 4];
-	uint8_t e = b_data[origin + 3];
-	uint8_t f = b_data[origin + 2];
-	uint8_t g = b_data[origin + 1];
-	uint8_t h = b_data[origin + 0];
+        uint8_t a = b_data[origin + 7];
+        uint8_t b = b_data[origin + 6];
+        uint8_t c = b_data[origin + 5];
+        uint8_t d = b_data[origin + 4];
+        uint8_t e = b_data[origin + 3];
+        uint8_t f = b_data[origin + 2];
+        uint8_t g = b_data[origin + 1];
+        uint8_t h = b_data[origin + 0];
 
-	obj_vram.b.character[c_y * 8 + c_x].u32[y] = 0
-	  | (a << 28)
-	  | (b << 24)
-	  | (c << 20)
-	  | (d << 16)
-	  | (e << 12)
-	  | (f << 8)
-	  | (g << 4)
-	  | (h << 0);
+        obj_vram.b.character[c_y * 8 + c_x].u32[y] = 0
+          | (a << 28)
+          | (b << 24)
+          | (c << 20)
+          | (d << 16)
+          | (e << 12)
+          | (f << 8)
+          | (g << 4)
+          | (h << 0);
       }
     }
   }
@@ -533,12 +542,128 @@ void main()
     (1/β)cosθ
   */
 
+  /* do 3d */
+  while (io_registers.a.GXSTAT & GXSTAT__geometry_engine_busy);
+
+  // clear matrix stack status
+  io_registers.a.GXSTAT |= GXSTAT__matrix_stack_status__overflow_or_underflow;
+
+  // clear projection matrix stack
+  int projection_stack_level = GXSTAT__matrix_stack_status__projection_stack_level(io_registers.a.GXSTAT);
+  if (projection_stack_level) {
+    io_registers.a.MTX_MODE = MTX_MODE__matrix_mode__projection;
+    io_registers.a.MTX_POP = MTX_POP__number_of_pops(1);
+  }
+
+  // clear position_and_vector matrix stack
+  int position_and_vector_stack_level = GXSTAT__matrix_stack_status__position_and_vector_stack_level(io_registers.a.GXSTAT);
+  if (position_and_vector_stack_level) {
+    io_registers.a.MTX_MODE = MTX_MODE__matrix_mode__position_and_vector;
+    io_registers.a.MTX_POP = MTX_POP__number_of_pops(position_and_vector_stack_level);
+  }
+
+  // load identity matrices
+  io_registers.a.MTX_MODE = MTX_MODE__matrix_mode__projection;
+  io_registers.a.MTX_IDENTITY = 0;
+  io_registers.a.MTX_SCALE = (1 << 12);
+  io_registers.a.MTX_SCALE = (1 << 12);
+  io_registers.a.MTX_SCALE = (1 << 12);
+
+  io_registers.a.MTX_MODE = MTX_MODE__matrix_mode__position;
+  io_registers.a.MTX_IDENTITY = 0;
+
+  io_registers.a.MTX_MODE = MTX_MODE__matrix_mode__position_and_vector;
+  io_registers.a.MTX_IDENTITY = 0;
+
+  io_registers.a.SWAP_BUFFERS = 0
+    | SWAP_BUFFERS__depth_buffering__z_value
+    | SWAP_BUFFERS__translucent_polygon_y_sorting__auto_sort;
+
+  io_registers.a.DISP3DCNT = 0
+    | DISP3DCNT__clear_image__disable
+    | DISP3DCNT__fog_master__disable
+    | DISP3DCNT__edge_marking__disable
+    | DISP3DCNT__anti_aliasing__disable
+    | DISP3DCNT__alpha_blending__disable
+    | DISP3DCNT__alpha_test__disable
+    | DISP3DCNT__texture_mapping__disable;
+
+  io_registers.a.CLEAR_COLOR = 0
+    | CLEAR_COLOR__clear_polygon_id(31)
+    | CLEAR_COLOR__alpha_value(31)
+    | CLEAR_COLOR__red(10);
+
+  io_registers.a.CLEAR_DEPTH = CLEAR_DEPTH__value(0x7fff);
+
+  io_registers.a.POLYGON_ATTR = 0
+    | POLYGON_ATTR__alpha_value(31)
+    | POLYGON_ATTR__render_front_surface__enable
+    | POLYGON_ATTR__render_back_surface__enable;
+
+  io_registers.a.VIEWPORT = 0
+    | VIEWPORT__y2(191)
+    | VIEWPORT__x2(255)
+    | VIEWPORT__y1(0)
+    | VIEWPORT__x1(0);
+
   int theta = 0;
   while (1) {
     struct sign_v cos = cos_table[theta];
     int sin_theta = theta + 90;
     if (sin_theta >= 360) sin_theta -= 360;
     struct sign_v sin = cos_table[sin_theta];
+
+    int _cos = cos.sign ? -cos.v : cos.v;
+    int _sin = sin.sign ? -sin.v : sin.v;
+
+    {
+      int x = -222;
+      int y = -128;
+      int x1 = x * _cos + y * _sin;
+      int y1 = -x * _sin + y * _cos;
+
+      io_registers.a.BEGIN_VTXS = BEGIN_VTXS__type__triangle;
+      io_registers.a.COLOR = (31 << 10); // blue
+      io_registers.a.VTX_10 = 0
+        | VTX_10__z_coordinate(1 << 6)
+        | VTX_10__y_coordinate(y1 >> (3 + 8))
+        | VTX_10__x_coordinate(x1 >> (3 + 8))
+        ;
+    }
+
+    {
+      int x = 222;
+      int y = -128;
+      int x1 = x * _cos + y * _sin;
+      int y1 = -x * _sin + y * _cos;
+
+      io_registers.a.COLOR = (31 << 5); // green
+      io_registers.a.VTX_10 = 0
+        | VTX_10__z_coordinate(1 << 6)
+        | VTX_10__y_coordinate(y1 >> (3 + 8))
+        | VTX_10__x_coordinate(x1 >> (3 + 8))
+        ;
+    }
+
+    {
+      int x = 0 << 8;
+      int y = 1 << 8;
+      int x1 = x * _cos + y * _sin;
+      int y1 = -x * _sin + y * _cos;
+
+      io_registers.a.COLOR = (31 << 0); // blue
+      io_registers.a.VTX_10 = 0
+        | VTX_10__z_coordinate(1 << 6)
+        | VTX_10__y_coordinate(y1 >> (3 + 8))
+        | VTX_10__x_coordinate(x1 >> (3 + 8))
+        ;
+    }
+
+    io_registers.a.END_VTXS = 0;
+
+    io_registers.a.SWAP_BUFFERS = 0
+      | SWAP_BUFFERS__depth_buffering__z_value
+      | SWAP_BUFFERS__translucent_polygon_y_sorting__auto_sort;
 
     // dx
     oam.b.param[0].pa = cos.sign ? cos.v : -cos.v;

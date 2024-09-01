@@ -127,14 +127,14 @@
 0x320 RDLINES_COUNT 267 Rendering minimum fill
 
 
-0x330 EDGE_COLOR_0_L 259 Edge marking color (Polygon ID’s 3 upper bits are 000)
-0x332 EDGE_COLOR_0_H 259 Edge marking color (Polygon ID’s 3 upper bits are 001)
-0x334 EDGE_COLOR_1_L 259 Edge marking color (Polygon ID’s 3 upper bits are 010)
-0x336 EDGE_COLOR_1_H 259 Edge marking color (Polygon ID’s 3 upper bits are 011)
-0x338 EDGE_COLOR_2_L 259 Edge marking color (Polygon ID’s 3 upper bits are 100)
-0x33a EDGE_COLOR_2_H 259 Edge marking color (Polygon ID’s 3 upper bits are 101)
-0x33c EDGE_COLOR_3_L 259 Edge marking color (Polygon ID’s 3 upper bits are 110)
-0x33e EDGE_COLOR_3_H 259 Edge marking color (Polygon ID’s 3 upper bits are 111)
+0x330 EDGE_COLOR_0 259 Edge marking color (Polygon ID’s 3 upper bits are 000)
+0x332
+0x334 EDGE_COLOR_1 259 Edge marking color (Polygon ID’s 3 upper bits are 010)
+0x336
+0x338 EDGE_COLOR_2 259 Edge marking color (Polygon ID’s 3 upper bits are 100)
+0x33a
+0x33c EDGE_COLOR_3 259 Edge marking color (Polygon ID’s 3 upper bits are 110)
+0x33e
 0x340 ALPHA_TEST_REF 258 Alpha test
 
 0x350 CLEAR_COLOR 231 Color buffer initial value

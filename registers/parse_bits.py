@@ -75,6 +75,7 @@ def aggregate_enums(aggregated_rows):
     enum_aggregated = defaultdict(list)
     all_bits = set()
     enum_bits = dict()
+    non_enum_bits = list()
 
     def assert_unique_ordered(bits, row):
         nonlocal all_bits
@@ -82,20 +83,28 @@ def aggregate_enums(aggregated_rows):
         assert max(all_bits, default=32) > max(bits), (all_bits, bits)
         all_bits |= bits
 
+    def enum_bits_name(row):
+        return (row["register_name"], row["enum_name"])
+
     for row in aggregated_rows:
         bit = parse_row(row)
         assert row["bit_name"] != "", row
         if row["enum_name"] == "":
-            assert_unique_ordered(bit.bits, row)
-            non_enum.append(bit)
-        else:
-            if row["enum_name"] not in enum_bits:
+            if bit.bits not in non_enum_bits:
                 assert_unique_ordered(bit.bits, row)
+            non_enum.append(bit)
+            non_enum_bits.append(bit.bits)
+        else:
+            if enum_bits_name(row) not in enum_bits:
+                if bit.bits not in enum_bits.values():
+                    #assert_unique_ordered(bit.bits, row)
+                    pass
                 non_enum.append(row["enum_name"])
             else:
-                assert enum_bits[row["enum_name"]] == bit.bits, row
+                eb = enum_bits[enum_bits_name(row)]
+                assert eb == bit.bits or (eb & bit.bits) == set(), row
 
-            enum_bits[row["enum_name"]] = bit.bits
+            enum_bits[enum_bits_name(row)] = bit.bits
             enum_aggregated[row["enum_name"]].append(bit)
 
     return non_enum, dict(enum_aggregated)

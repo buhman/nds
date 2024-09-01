@@ -24,7 +24,7 @@ def render_bit(prefix, bit):
     elif bit.value is None:
         # variable macro
         mask_value = mask_from_bits(bit.bits)
-        assert bit.mask & mask_value == mask_value, (bit.mask, mask_value)
+        assert bit.mask & mask_value == mask_value, (bit.mask, mask_value, bit)
         yield f"#define {macro_name}(v) (((v) & {hex(mask_value)}) << {min(bit.bits)})"
     else:
         assert False, bit

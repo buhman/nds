@@ -43,11 +43,14 @@ assert buf[0x15c] == 0x56
 assert buf[0x15d] == 0xcf
 
 logo_crc = crc16_modbus(buf[0x0c0:0xc0 + 0x9c])
-print(hex(logo_crc))
+print("logo", hex(logo_crc))
 assert logo_crc == 0xcf56
 
 header_crc = crc16_modbus(buf[0:0x15e])
-print(hex(header_crc))
+print("header", hex(header_crc))
+
+secure_area_crc = crc16_modbus(buf[0x4000:0x8000])
+print("secure area", hex(secure_area_crc))
 
 import struct
 header_crc_b = struct.pack('<H', header_crc)

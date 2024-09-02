@@ -1,23 +1,16 @@
 OPT = -Os
 
-all: main.nds
-
-res/%.h: res/%.data
-	$(BUILD_BINARY_H)
-
-res/%.pal.h: res/%.data.pal
-	$(BUILD_BINARY_H)
-
-MAIN_OBJ = \
+OBJ = \
 	header.o \
-	start.o \
-	main.o \
-	res/player.data.o \
-	res/player.data.pal.o \
-	res/bowser.data.o \
-	res/bowser.data.pal.o
+	arm9/arm9.bin.o \
+	arm7/arm7.bin.o
 
-main.elf: $(MAIN_OBJ)
+all: cartridge.bin
 
-include arm9.mk
+cartridge.elf: $(OBJ)
+
+TARGET = arm-none-eabi-
+AARCH = -march=armv4t -mlittle-endian
+OBJARCH = -O elf32-littlearm -B armv4t
+LDSCRIPT = cartridge.lds
 include common.mk

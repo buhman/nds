@@ -22,7 +22,7 @@ _fill_loop.\@:
 _fill_break.\@:
         .endm
 
-        .section .text.9start
+        .section .text.start
         .global _start
 _start:
 	/*
@@ -52,14 +52,8 @@ _link_bss:
 
 _c_runtime:
 	/* set stack pointer */
-        ldr sp, =0x23ffffc
+        ldr sp, =__stack_end
 
 	/* jump to main */
         ldr r0, =main
         bx r0
-
-	.section .text.7start
-	.global _7start
-_7start:
-	mov r1, #0x7
-	b _7start

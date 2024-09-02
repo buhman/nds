@@ -1,7 +1,7 @@
 	.section .text.header
 
-	.fill 12,1,0x0    /* Game Title */
-	.ascii "CODE"     /* Game Code */
+	.ascii "game title  " /* Game Title */
+	.ascii "NTR1"     /* Game Code */
 	.ascii "00"       /* Maker Code */
 	.byte 0x0         /* Unit Code */
 	.byte 0x0         /* Encryption Seed Select */
@@ -30,7 +30,7 @@
 	.long 0x00586000  /* 040001a4 setting for normal commands */
 	.long 0x001808F8  /* 040001a4 setting for KEY1 commands */
 	.long 0x00000000  /* Icon/Title offset */
-	.short 0x8e6e 	  /* Secure Area Checksum */
+	.short 0x4bff 	  /* Secure Area Checksum */
 	.short 0x0d7e     /* Secure Area Delay */
 	.long 0x02000a58  /* ARM9 auto load list hook ram address */
 	.long 0x02380158  /* ARM7 auto load list hook ram address */

@@ -5,10 +5,10 @@
 #include "obj.h"
 #include "oam.h"
 
-#include "res/player.h"
-#include "res/player.pal.h"
-#include "res/bowser.h"
-#include "res/bowser.pal.h"
+#include "../res/player.data.h"
+#include "../res/player.data.pal.h"
+#include "../res/bowser.data.h"
+#include "../res/bowser.data.pal.h"
 
 static inline uint16_t rgb565(const uint8_t * buf)
 {
@@ -430,23 +430,23 @@ void main()
     | DISPCNT__character_obj_mapping_mode__1d_mapping
     ;
 
-  uint32_t pal_size = (uint32_t)&_binary_res_player_data_pal_size;
-  const uint8_t * pal = (const uint8_t *)&_binary_res_player_data_pal_start;
+  uint32_t pal_size = (uint32_t)&_binary_player_data_pal_size;
+  const uint8_t * pal = (const uint8_t *)&_binary_player_data_pal_start;
 
   // palette ram
   for (int i = 0; i < 15; i++) {
     palette_ram.a.bg.palette[0].color[i] = rgb565(&pal[i * 3]);
   }
 
-  uint32_t b_pal_size = (uint32_t)&_binary_res_bowser_data_pal_size;
-  const uint8_t * b_pal = (const uint8_t *)&_binary_res_bowser_data_pal_start;
+  uint32_t b_pal_size = (uint32_t)&_binary_bowser_data_pal_size;
+  const uint8_t * b_pal = (const uint8_t *)&_binary_bowser_data_pal_start;
 
   // bowser palette ram
   for (int i = 0; i < 16; i++) {
     palette_ram.b.obj.palette[0].color[i] = rgb565(&b_pal[i * 3]);
   }
 
-  const uint8_t * data = (const uint8_t *)&_binary_res_player_data_start;
+  const uint8_t * data = (const uint8_t *)&_binary_player_data_start;
 
   for (int y = 0; y < 48; y++) {
     uint8_t a = data[y * 8 + 7];
@@ -479,7 +479,7 @@ void main()
   bg_vram.a.screen.offset[0].block[31].u16[32 * 1 + 1] = 4;
   bg_vram.a.screen.offset[0].block[31].u16[32 * 2 + 1] = 5;
 
-  const uint8_t * b_data = (const uint8_t *)&_binary_res_bowser_data_start;
+  const uint8_t * b_data = (const uint8_t *)&_binary_bowser_data_start;
 
   for (int c_y = 0; c_y < 8; c_y++) {
     for (int c_x = 0; c_x < 8; c_x++) {

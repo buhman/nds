@@ -80,6 +80,12 @@ endef
 
 -include $(shell find -type f -name '*.d')
 
+clean:
+	find -P \
+		-regextype posix-egrep \
+		-regex '.*\.(nds|o|d|bin|elf|gch)$$' \
+		-exec rm {} \;
+
 .SUFFIXES:
 .INTERMEDIATE:
 .SECONDARY:

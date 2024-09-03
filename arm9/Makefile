@@ -1,5 +1,11 @@
 OPT = -Os
 
+ALL = \
+	arm9.bin \
+	triangle.bin
+
+all: arm9.bin
+
 OBJ = \
 	start.o \
 	main.o \
@@ -8,9 +14,10 @@ OBJ = \
 	../res/bowser.data.o \
 	../res/bowser.data.pal.o
 
-all: arm9.bin
-
 arm9.elf: $(OBJ)
+
+foo = start.o examples/triangle.o
+triangle.elf: $(foo)
 
 CFLAGS += -I../include
 

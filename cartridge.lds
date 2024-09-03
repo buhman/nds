@@ -21,7 +21,7 @@ SECTIONS
 
   .text.arm9 ALIGN(4) :
   {
-    KEEP(*(.data.arm9/arm9.bin))
+    KEEP(*(.data.arm9*.bin))
   } AT>rom
 
   . = 0x02000000 + 0x8000;
@@ -30,7 +30,7 @@ SECTIONS
 
   .text.arm7 ALIGN(4) :
   {
-    KEEP(*(.data.arm7/arm7.bin))
+    KEEP(*(.data.arm7*.bin))
   } AT>rom
 
   /DISCARD/ :

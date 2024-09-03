@@ -17,23 +17,28 @@ SECTIONS
 
   . = 0x02000000;
 
+  _arm9 = .;
+
   .text.arm9 ALIGN(4) :
   {
-    KEEP(arm9/arm9.bin.o(*))
+    KEEP(*(.data.arm9/arm9.bin))
   } AT>rom
 
   . = 0x02000000 + 0x8000;
 
+  _arm7 = .;
+
   .text.arm7 ALIGN(4) :
   {
-    KEEP(arm7/arm7.bin.o(*))
+    KEEP(*(.data.arm7/arm7.bin))
   } AT>rom
 
   /DISCARD/ :
   {
   *(.glue_7) *(.glue_7t) *(.vfp11_veneer) *(.v4_bx)
-  *(.ARM.attributes) *(.iplt) *(.rel.iplt) *(.igot.plt)
   }
+
+  INCLUDE "debug.lds"
 }
 
 /* header symbols */

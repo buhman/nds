@@ -25,6 +25,10 @@ void main()
   // load identity matrices
   io_registers.a.MTX_MODE = MTX_MODE__matrix_mode__projection;
   io_registers.a.MTX_IDENTITY = 0;
+  // scale the x-axis by the ratio of the display height by the display width.
+  io_registers.a.MTX_SCALE = (192 << 12) / 256;
+  io_registers.a.MTX_SCALE = 1 << 12;
+  io_registers.a.MTX_SCALE = 1 << 12;
 
   io_registers.a.MTX_MODE = MTX_MODE__matrix_mode__position;
   io_registers.a.MTX_IDENTITY = 0;

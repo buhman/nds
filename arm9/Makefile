@@ -20,6 +20,8 @@ triangle.elf: start.o examples/triangle.o
 
 triangle_rotating.elf: start.o examples/triangle_rotating.o ../math/cos_table_fp12.o ../math/cos.o
 
+texture.elf: start.o examples/texture.o ../res/hotaru_futaba.data.o ../res/hotaru_futaba.data.pal.o
+
 CFLAGS += -I../include -I../math
 
 include arm9.mk

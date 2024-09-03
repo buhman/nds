@@ -19,6 +19,16 @@ void main()
     | DISPCNT__display_selection_for_bg0__3d_graphics
     ;
 
+  // disable all 3d effects
+  io_registers.a.DISP3DCNT = 0
+    | DISP3DCNT__clear_image__disable
+    | DISP3DCNT__fog_master__disable
+    | DISP3DCNT__edge_marking__disable
+    | DISP3DCNT__anti_aliasing__disable
+    | DISP3DCNT__alpha_blending__disable
+    | DISP3DCNT__alpha_test__disable
+    | DISP3DCNT__texture_mapping__disable;
+
   // clear matrix stack status
   io_registers.a.GXSTAT |= GXSTAT__matrix_stack_status__overflow_or_underflow;
 
@@ -35,16 +45,6 @@ void main()
 
   io_registers.a.MTX_MODE = MTX_MODE__matrix_mode__position_and_vector;
   io_registers.a.MTX_IDENTITY = 0;
-
-  // disable all 3d effects
-  io_registers.a.DISP3DCNT = 0
-    | DISP3DCNT__clear_image__disable
-    | DISP3DCNT__fog_master__disable
-    | DISP3DCNT__edge_marking__disable
-    | DISP3DCNT__anti_aliasing__disable
-    | DISP3DCNT__alpha_blending__disable
-    | DISP3DCNT__alpha_test__disable
-    | DISP3DCNT__texture_mapping__disable;
 
   // set the 3d clear color to a dark red
   io_registers.a.CLEAR_COLOR = 0

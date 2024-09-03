@@ -10,17 +10,10 @@ arm9/%.bin: phony
 arm7/%.bin: phony
 	make -C arm7/ $(notdir $@)
 
-OBJ = \
-	header.o \
-	arm9/arm9.bin.o \
-	arm7/arm7.bin.o
-cartridge.elf: $(OBJ)
+DEFAULT = header.o arm7/arm7.bin.o
 
-TRIANGLE_OBJ = \
-	header.o \
-	arm9/triangle.bin.o \
-	arm7/arm7.bin.o
-triangle.elf: $(TRIANGLE_OBJ)
+triangle.elf: $(DEFAULT) arm9/triangle.bin.o
+triangle_rotating.elf: $(DEFAULT) arm9/triangle_rotating.bin.o
 
 TARGET = arm-none-eabi-
 AARCH = -march=armv4t -mlittle-endian

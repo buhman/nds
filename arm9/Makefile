@@ -16,10 +16,11 @@ OBJ = \
 
 arm9.elf: $(OBJ)
 
-foo = start.o examples/triangle.o
-triangle.elf: $(foo)
+triangle.elf: start.o examples/triangle.o
 
-CFLAGS += -I../include
+triangle_rotating.elf: start.o examples/triangle_rotating.o ../math/cos_table_fp12.o ../math/cos.o
+
+CFLAGS += -I../include -I../math
 
 include arm9.mk
 include ../common.mk

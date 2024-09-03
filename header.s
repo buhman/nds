@@ -1,11 +1,11 @@
 	.section .text.header
 
 	.ascii "game title  " /* Game Title */
-	.ascii "NTR1"     /* Game Code */
+	.ascii "AAAA"     /* Game Code */
 	.ascii "00"       /* Maker Code */
 	.byte 0x0         /* Unit Code */
-	.byte 0x0         /* Encryption Seed Select */
-	.byte 0x8         /* Device capacity */
+	.byte 0x0         /* Device type */
+	.byte 0x0         /* Device capacity */
 	.fill 7,1,0x0     /* Reserved */
 	.byte 0x0         /* Reserved */
 	.byte 0x0         /* NDS region */
@@ -32,8 +32,8 @@
 	.long 0x00000000  /* Icon/Title offset */
 	.short 0x4bff 	  /* Secure Area Checksum */
 	.short 0x0d7e     /* Secure Area Delay */
-	.long 0x02000a58  /* ARM9 auto load list hook ram address */
-	.long 0x02380158  /* ARM7 auto load list hook ram address */
+	.long 0x00000000  /* ARM9 auto load list hook ram address */
+	.long 0x00000000  /* ARM7 auto load list hook ram address */
 	.fill 8,1,0x0     /* Secure Area Disable */
 	.long _rom_size   /* Total used rom size */
 	.long _header_size /* ROM header size */

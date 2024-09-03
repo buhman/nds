@@ -35,28 +35,39 @@ logo = [
 logo_b = bytes(logo)
 assert crc16_modbus(logo_b) == 0xcf56
 
+import struct
 import sys
 with open(sys.argv[1], 'rb') as f:
     buf = bytearray(f.read())
 
-assert buf[0x15c] == 0x56
-assert buf[0x15d] == 0xcf
+#assert buf[0x15c] == 0x56
+#assert buf[0x15d] == 0xcf
 
-logo_crc = crc16_modbus(buf[0x0c0:0xc0 + 0x9c])
+logo_crc = crc16_modbus(buf[0x0c0:0x15b+1])
 print("logo", hex(logo_crc))
-assert logo_crc == 0xcf56
-
-header_crc = crc16_modbus(buf[0:0x15e])
-print("header", hex(header_crc))
+if logo_crc != 0xcf56:
+    for i, e in enumerate(logo):
+        print(i, e, hex (0xc0+i))
+        buf[0x0c0 + i] = e
+    logo_crc = crc16_modbus(buf[0x0c0:0x15b+1])
+    print("logo2", hex(logo_crc))
 
 secure_area_crc = crc16_modbus(buf[0x4000:0x8000])
 print("secure area", hex(secure_area_crc))
+secure_area_crc_b = struct.pack('<H', secure_area_crc)
+buf[0x06c] = secure_area_crc_b[0]
+buf[0x06d] = secure_area_crc_b[1]
 
-import struct
+header_crc = crc16_modbus(buf[0:0x15d + 1])
+print("header", hex(header_crc))
 header_crc_b = struct.pack('<H', header_crc)
-
 buf[0x15e] = header_crc_b[0]
 buf[0x15f] = header_crc_b[1]
 
 with open(sys.argv[2], 'wb') as f:
     f.write(buf)
+    assert len(buf) <= 131072, len(buf)
+    i = 131072 - len(buf)
+    while i > 0:
+        f.write(bytes([0]))
+        i -= 1

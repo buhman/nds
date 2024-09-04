@@ -24,6 +24,8 @@ texture.elf: start.o examples/texture.o ../res/hotaru_futaba.data.o ../res/hotar
 
 cube.elf: start.o examples/cube.o ../math/cos_table_fp12.o ../math/cos.o
 
+icosphere.elf: start.o examples/icosphere.o ../math/cos_table_fp12.o ../math/cos.o
+
 CFLAGS += -I../include -I../
 
 include arm9.mk

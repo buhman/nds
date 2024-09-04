@@ -6,7 +6,7 @@ MEMORY
 }
 SECTIONS
 {
-  . = ORIGIN(ram) + 0x8000;
+  . = ORIGIN(ram) + 0x390000;
 
   .text ALIGN(4) :
   {

@@ -30,7 +30,7 @@ struct vertex_normal cube_normals[] = {
   {0, 0, -512},
 };
 
-struct face cube_faces[] = {
+struct quadrilateral cube_quadrilaterals[] = {
   {
     {0, 0, 0},
     {4, 1, 0},

@@ -6,7 +6,8 @@ from parse_obj_fixed_point import parse_obj_file
 from parse_obj_fixed_point import VertexPosition
 from parse_obj_fixed_point import VertexNormal
 from parse_obj_fixed_point import VertexTexture
-from parse_obj_fixed_point import Face
+from parse_obj_fixed_point import Triangle
+from parse_obj_fixed_point import Quadrilateral
 
 vertex_position_fraction_bits = 6 # 4.6
 vertex_normal_fraction_bits = 9 # s.9
@@ -29,11 +30,17 @@ def render_face(face):
         yield from render_index_vtn(index_vtn)
     yield "},"
 
-def render_faces(prefix, faces):
-    yield f"struct face {prefix}_faces[] = {{"
+def render_faces(prefix, name, faces):
+    yield f"struct {name} {prefix}_{name}s[] = {{"
     for face in faces:
         yield from render_face(face)
     yield "};"
+
+def render_triangles(prefix, faces):
+    yield from render_faces(prefix, "triangle", faces)
+
+def render_quadrilateral(prefix, faces):
+    yield from render_faces(prefix, "quadrilateral", faces)
 
 def xyz(vec):
     return (vec.x, vec.y, vec.z)
@@ -87,5 +94,8 @@ render(render_header())
 render(render_vertex_positions(prefix, d[VertexPosition]))
 render(render_vertex_texture(prefix, d[VertexTexture]))
 render(render_vertex_normals(prefix, d[VertexNormal]))
-render(render_faces(prefix, d[Face]))
+if Triangle in d:
+    render(render_triangles(prefix, d[Triangle]))
+if Quadrilateral in d:
+    render(render_quadrilateral(prefix, d[Quadrilateral]))
 sys.stdout.write(out.getvalue())

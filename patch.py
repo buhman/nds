@@ -66,8 +66,3 @@ buf[0x15f] = header_crc_b[1]
 
 with open(sys.argv[2], 'wb') as f:
     f.write(buf)
-    assert len(buf) <= 131072, len(buf)
-    i = 131072 - len(buf)
-    while i > 0:
-        f.write(bytes([0]))
-        i -= 1

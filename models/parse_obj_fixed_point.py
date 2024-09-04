@@ -33,7 +33,13 @@ class IndexVTN:
     vertex_normal: int
 
 @dataclass
-class Face:
+class Triangle:
+    a: IndexVTN
+    b: IndexVTN
+    c: IndexVTN
+
+@dataclass
+class Quadrilateral:
     a: IndexVTN
     b: IndexVTN
     c: IndexVTN
@@ -82,8 +88,12 @@ def parse_vertex_indices(args):
 
 def parse_face(args):
     vertices = args.split()
-    assert len(vertices) == 4, vertices
-    yield Face(*map(parse_vertex_indices, vertices))
+    if len(vertices) == 3:
+        yield Triangle(*map(parse_vertex_indices, vertices))
+    elif len(vertices) == 4:
+        yield Quadrilateral(*map(parse_vertex_indices, vertices))
+    else:
+        assert False, (len(vertices), args)
 
 def parse_obj_line(line):
     prefixes = [

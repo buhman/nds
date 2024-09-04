@@ -8,7 +8,13 @@ struct index_ptn {
   uint16_t normal;
 };
 
-struct face {
+struct triangle {
+  struct index_ptn a;
+  struct index_ptn b;
+  struct index_ptn c;
+};
+
+struct quadrilateral {
   struct index_ptn a;
   struct index_ptn b;
   struct index_ptn c;

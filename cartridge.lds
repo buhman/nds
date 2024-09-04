@@ -24,7 +24,7 @@ SECTIONS
     KEEP(*(.data.arm9*.bin))
   } AT>rom
 
-  . = 0x02000000 + 0x8000;
+  . = 0x02000000 + 0x390000;
 
   _arm7 = .;
 

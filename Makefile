@@ -18,6 +18,7 @@ DEFAULT = header.o arm7/arm7.bin.o
 triangle.elf: $(DEFAULT) arm9/triangle.bin.o
 triangle_rotating.elf: $(DEFAULT) arm9/triangle_rotating.bin.o
 texture.elf: $(DEFAULT) arm9/texture.bin.o
+cube.elf: $(DEFAULT) arm9/cube.bin.o
 
 TARGET = arm-none-eabi-
 AARCH = -march=armv4t -mlittle-endian

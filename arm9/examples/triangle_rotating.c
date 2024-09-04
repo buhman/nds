@@ -1,7 +1,7 @@
 #include "io_registers.h"
 #include "bits.h"
 
-#include "math.h"
+#include "math/math.h"
 
 void main()
 {

@@ -22,7 +22,9 @@ triangle_rotating.elf: start.o examples/triangle_rotating.o ../math/cos_table_fp
 
 texture.elf: start.o examples/texture.o ../res/hotaru_futaba.data.o ../res/hotaru_futaba.data.pal.o
 
-CFLAGS += -I../include -I../math
+cube.elf: start.o examples/cube.o ../math/cos_table_fp12.o ../math/cos.o
+
+CFLAGS += -I../include -I../
 
 include arm9.mk
 include ../common.mk

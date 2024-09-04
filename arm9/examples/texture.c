@@ -1,8 +1,8 @@
 #include "io_registers.h"
 #include "bits.h"
 
-#include "../res/hotaru_futaba.data.h"
-#include "../res/hotaru_futaba.data.pal.h"
+#include "res/hotaru_futaba.data.h"
+#include "res/hotaru_futaba.data.pal.h"
 
 static inline uint16_t rgb565(const uint8_t * buf)
 {

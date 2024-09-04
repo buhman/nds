@@ -89,12 +89,11 @@ void main()
   // set the depth buffer clear value to the maximum value
   io_registers.a.CLEAR_DEPTH = CLEAR_DEPTH__value(0x7fff);
 
-  // the following polygons are fully opaque and are not
-  // backface-culled
+  // the following polygons are fully opaque; backface culling is
+  // enabled
   io_registers.a.POLYGON_ATTR = 0
     | POLYGON_ATTR__alpha_value(31)
-    | POLYGON_ATTR__render_front_surface__enable
-    | POLYGON_ATTR__render_back_surface__enable;
+    | POLYGON_ATTR__render_front_surface__enable;
 
   // the 3d viewport is the entire display area
   io_registers.a.VIEWPORT = 0

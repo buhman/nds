@@ -45,14 +45,32 @@ void main()
   // load identity matrices
   io_registers.a.MTX_MODE = MTX_MODE__matrix_mode__projection;
   io_registers.a.MTX_IDENTITY = 0;
-  // scale everything by 1/2
-  io_registers.a.MTX_SCALE = (1 << 12) / 2;
-  io_registers.a.MTX_SCALE = (1 << 12) / 2;
-  io_registers.a.MTX_SCALE = (1 << 12) / 2;
-  // scale the x-axis by the ratio of the display height by the display width.
-  io_registers.a.MTX_SCALE = (192 << 12) / 256;
-  io_registers.a.MTX_SCALE = 1 << 12;
-  io_registers.a.MTX_SCALE = 1 << 12;
+
+  // load a symmetric perspective matrix, with aspect ratio correction
+  io_registers.a.MTX_LOAD_4X4 = (192 << 12) / 256;
+  io_registers.a.MTX_LOAD_4X4 = 0;
+  io_registers.a.MTX_LOAD_4X4 = 0;
+  io_registers.a.MTX_LOAD_4X4 = 0;
+
+  io_registers.a.MTX_LOAD_4X4 = 0;
+  io_registers.a.MTX_LOAD_4X4 = 1 << 12;
+  io_registers.a.MTX_LOAD_4X4 = 0;
+  io_registers.a.MTX_LOAD_4X4 = 0;
+
+  io_registers.a.MTX_LOAD_4X4 = 0;
+  io_registers.a.MTX_LOAD_4X4 = 0;
+  io_registers.a.MTX_LOAD_4X4 = 0;
+  io_registers.a.MTX_LOAD_4X4 = -(1 << 12);
+
+  io_registers.a.MTX_LOAD_4X4 = 0;
+  io_registers.a.MTX_LOAD_4X4 = 0;
+  io_registers.a.MTX_LOAD_4X4 = -(1 << 12);
+  io_registers.a.MTX_LOAD_4X4 = 0;
+
+  // translate the viewpoint
+  io_registers.a.MTX_TRANS = 0;
+  io_registers.a.MTX_TRANS = 0;
+  io_registers.a.MTX_TRANS = -3 << 12;
 
   io_registers.a.MTX_MODE = MTX_MODE__matrix_mode__position;
   io_registers.a.MTX_IDENTITY = 0;

@@ -3,19 +3,21 @@
 
 #include "math/math.h"
 
-#include "res/060067E0.data.h"
-#include "res/060067E0.data.pal.h"
-#include "res/060077E0.data.h"
-#include "res/060077E0.data.pal.h"
-#include "res/060079E0.data.h"
-#include "res/060079E0.data.pal.h"
-#include "res/06007BE0.data.h"
-#include "res/06007BE0.data.pal.h"
-#include "res/06007DE0.data.h"
-#include "res/06007DE0.data.pal.h"
-#include "res/06007FE0.data.h"
-#include "res/06007FE0.data.pal.h"
-#include "models/majora.h"
+#include "texture/060067E0.data.h"
+#include "texture/060067E0.data.pal.h"
+#include "texture/060077E0.data.h"
+#include "texture/060077E0.data.pal.h"
+#include "texture/060079E0.data.h"
+#include "texture/060079E0.data.pal.h"
+#include "texture/06007BE0.data.h"
+#include "texture/06007BE0.data.pal.h"
+#include "texture/06007DE0.data.h"
+#include "texture/06007DE0.data.pal.h"
+#include "texture/06007FE0.data.h"
+#include "texture/06007FE0.data.pal.h"
+
+#include "res/majora.h"
+#include "model/majora.h"
 
 struct object * object[6] = {
   &majora_1,
@@ -26,43 +28,19 @@ struct object * object[6] = {
   &majora_7,
 };
 
-int palette_offset[6];
-int pixel_dimension[6];
-uint32_t teximage_param[6];
-
-int round_up_32(int n)
-{
-  return ((n + 63) / 64) * 64;
-}
-
-uint16_t rgb565(const uint8_t * buf)
-{
-  uint8_t r = buf[0] >> 3;
-  uint8_t g = buf[1] >> 3;
-  uint8_t g_l = (buf[1] >> 2) & 1;
-  uint8_t b = buf[2] >> 3;
-
-  return (g_l << 15) | (b << 10) | (g << 5) | (r << 0);
-}
-
 void copy_palettes()
 {
-  int offset = 0;
   volatile uint16_t * vram_f = (volatile uint16_t *)(0x06890000);
 
-  int num_pixel_palettes = (sizeof (majora_pixel_palette)) / (sizeof (struct pixel_palette));
-  for (int i = 0; i < num_pixel_palettes; i++) {
-    palette_offset[i] = offset;
-
-    int colors = majora_pixel_palette[i].palette.size / 3;
-
-    uint8_t * pal = majora_pixel_palette[i].palette.start;
+  int palettes = (sizeof (material)) / (sizeof (material[0]));
+  for (int i = 0; i < palettes; i++) {
+    int colors = material[i].palette.size / 2;
+    uint16_t * pal = (uint16_t *)material[i].palette.start;
+    int offset = material[i].palette.vram_offset;
 
     for (int c = 0; c < colors; c++) {
-      vram_f[c + (offset / 2)] = rgb565(&pal[c * 3]);
+      vram_f[c + offset / 2] = pal[c];
     }
-
-    offset = round_up_32(offset + colors * 2);
   }
 }
 
@@ -81,58 +59,64 @@ int pixel_dimension_from_pixels(int pixels)
   }
 }
 
-uint32_t teximage_size_from_dimension(int dimension)
+uint32_t teximage_param__t_size(int height)
 {
-  switch (dimension) {
+  switch (height) {
   default:
-  case 8:       return TEXIMAGE_PARAM__t_size__8_texels
-                     | TEXIMAGE_PARAM__s_size__8_texels;
-  case 16:      return TEXIMAGE_PARAM__t_size__16_texels
-                     | TEXIMAGE_PARAM__s_size__16_texels;
-  case 32:      return TEXIMAGE_PARAM__t_size__32_texels
-                     | TEXIMAGE_PARAM__s_size__32_texels;
-  case 64:      return TEXIMAGE_PARAM__t_size__64_texels
-                     | TEXIMAGE_PARAM__s_size__64_texels;
-  case 128:     return TEXIMAGE_PARAM__t_size__128_texels
-                     | TEXIMAGE_PARAM__s_size__128_texels;
-  case 256:     return TEXIMAGE_PARAM__t_size__256_texels
-                     | TEXIMAGE_PARAM__s_size__256_texels;
-  case 512:     return TEXIMAGE_PARAM__t_size__512_texels
-                     | TEXIMAGE_PARAM__s_size__512_texels;
-  case 1024:    return TEXIMAGE_PARAM__t_size__1024_texels
-                     | TEXIMAGE_PARAM__s_size__1024_texels;
+  case 8:       return TEXIMAGE_PARAM__t_size__8_texels;
+  case 16:      return TEXIMAGE_PARAM__t_size__16_texels;
+  case 32:      return TEXIMAGE_PARAM__t_size__32_texels;
+  case 64:      return TEXIMAGE_PARAM__t_size__64_texels;
+  case 128:     return TEXIMAGE_PARAM__t_size__128_texels;
+  case 256:     return TEXIMAGE_PARAM__t_size__256_texels;
+  case 512:     return TEXIMAGE_PARAM__t_size__512_texels;
+  case 1024:    return TEXIMAGE_PARAM__t_size__1024_texels;
   }
 }
 
-uint32_t make_teximage_param(int offset, int dimension)
+uint32_t teximage_param__s_size(int width)
 {
-  return 0
-    | TEXIMAGE_PARAM__texture_coordinate_transformation_mode__vertex_source
-    | TEXIMAGE_PARAM__texture_format__256_color_palette
-    | teximage_size_from_dimension(dimension)
-    | TEXIMAGE_PARAM__repeat_t__repeat
-    | TEXIMAGE_PARAM__repeat_s__repeat
-    | TEXIMAGE_PARAM__texture_starting_address(offset >> 3);
+  switch (width) {
+  default:
+  case 8:       return TEXIMAGE_PARAM__s_size__8_texels;
+  case 16:      return TEXIMAGE_PARAM__s_size__16_texels;
+  case 32:      return TEXIMAGE_PARAM__s_size__32_texels;
+  case 64:      return TEXIMAGE_PARAM__s_size__64_texels;
+  case 128:     return TEXIMAGE_PARAM__s_size__128_texels;
+  case 256:     return TEXIMAGE_PARAM__s_size__256_texels;
+  case 512:     return TEXIMAGE_PARAM__s_size__512_texels;
+  case 1024:    return TEXIMAGE_PARAM__s_size__1024_texels;
+  }
+}
+
+uint32_t teximage_param__color_palette(int palette_size)
+{
+  switch (palette_size) {
+  default:
+  case 4:   return TEXIMAGE_PARAM__texture_format__4_color_palette;
+  case 16:  return TEXIMAGE_PARAM__texture_format__16_color_palette;
+  case 256: return TEXIMAGE_PARAM__texture_format__256_color_palette;
+  }
 }
 
 void copy_pixels()
 {
-  int offset = 0;
   volatile uint16_t * vram_a = (volatile uint16_t *)(0x06800000);
 
-  int num_pixel_palettes = (sizeof (majora_pixel_palette)) / (sizeof (struct pixel_palette));
-  for (int i = 0; i < num_pixel_palettes; i++) {
-    int size = majora_pixel_palette[i].pixel.size;
-    pixel_dimension[i] = pixel_dimension_from_pixels(size);
-    teximage_param[i] = make_teximage_param(offset, pixel_dimension[i]);
-    uint8_t * pixel = majora_pixel_palette[i].pixel.start;
+  int pixels = (sizeof (material)) / (sizeof (material[0]));
+  *((volatile uint32_t *)0x4440000) = pixels;
+  for (int i = 0; i < pixels; i++) {
+    int size = material[i].pixel.size;
+    uint16_t * pixel = (uint16_t *)material[i].pixel.start;
+    int offset = material[i].pixel.vram_offset;
 
-    for (int p = 0; p < size; p+=2) {
-      uint16_t texel = (pixel[p + 1] << 8) | (pixel[p + 0] << 0);
-      vram_a[(p + offset) / 2] = texel;
+    *((volatile uint32_t *)0x4440000) = size;
+
+    for (int t = 0; t < size / 2; t++) {
+      vram_a[t + offset / 2] = pixel[t];
     }
 
-    offset += size;
+    break;
   }
 }
 
@@ -210,7 +194,6 @@ void main()
     | DISP3DCNT__alpha_test__disable
     | DISP3DCNT__texture_mapping__enable;
 
-  copy_texture_data();
   copy_texture_data();
 
   // clear matrix stack status
@@ -341,7 +324,6 @@ void main()
 
 
     // multiply by a y-axis rotation
-    /*
     io_registers.a.MTX_MULT_3X3 = cos2;
     io_registers.a.MTX_MULT_3X3 = 0;
     io_registers.a.MTX_MULT_3X3 = sin2;
@@ -353,7 +335,6 @@ void main()
     io_registers.a.MTX_MULT_3X3 = -sin2;
     io_registers.a.MTX_MULT_3X3 = 0;
     io_registers.a.MTX_MULT_3X3 = cos2;
-    */
 
     /*
     // multiply by a z-axis rotation
@@ -425,12 +406,23 @@ void main()
       struct object * obj = object[oix];
       const int num_triangles = obj->triangle_count;
 
-      int material = obj->material;
+      int material_ix = obj->material;
+      int pixel_offset = material[material_ix].pixel.vram_offset;
+      int palette_offset = material[material_ix].palette.vram_offset;
+      int width = material[material_ix].pixel.width;
+      int height = material[material_ix].pixel.height;
+      int palette_size = material[material_ix].palette.palette_size;
 
-      io_registers.a.TEXPLTT_BASE = TEXPLTT_BASE__base_address(palette_offset[material] >> 4);
-      io_registers.a.TEXIMAGE_PARAM = teximage_param[material];
-
-      int dimension = pixel_dimension[material];
+      int shift = palette_size == 4 ? 3 : 4;
+      io_registers.a.TEXPLTT_BASE = TEXPLTT_BASE__base_address(palette_offset >> shift);
+      io_registers.a.TEXIMAGE_PARAM = 0
+	| TEXIMAGE_PARAM__texture_coordinate_transformation_mode__texcoord_source
+	| teximage_param__color_palette(palette_size)
+	| TEXIMAGE_PARAM__repeat_t__repeat
+	| TEXIMAGE_PARAM__repeat_s__repeat
+	| teximage_param__t_size(height)
+	| teximage_param__s_size(width)
+	| TEXIMAGE_PARAM__texture_starting_address(pixel_offset >> 3);
 
       for (int i = 0; i < num_triangles; i++) {
 	// "When texture mapping, the Geometry Engine works faster if you
@@ -440,8 +432,8 @@ void main()
 	int au = at->u;
 	int av = at->v;
 	io_registers.a.TEXCOORD = 0
-	  | TEXCOORD__t_coordinate(v_to_t(av, dimension))
-	  | TEXCOORD__s_coordinate(u_to_s(au, dimension));
+	  | TEXCOORD__t_coordinate(v_to_t(av, height))
+	  | TEXCOORD__s_coordinate(u_to_s(au, width));
 
 	struct vertex_normal * an = &majora_normal[obj->triangle[i].a.normal];
 	io_registers.a.NORMAL = 0
@@ -460,8 +452,8 @@ void main()
 	int bu = bt->u;
 	int bv = bt->v;
 	io_registers.a.TEXCOORD = 0
-	  | TEXCOORD__t_coordinate(v_to_t(bv, dimension))
-	  | TEXCOORD__s_coordinate(u_to_s(bu, dimension));
+	  | TEXCOORD__t_coordinate(v_to_t(bv, height))
+	  | TEXCOORD__s_coordinate(u_to_s(bu, width));
 
 	struct vertex_normal * bn = &majora_normal[obj->triangle[i].b.normal];
 	io_registers.a.NORMAL = 0
@@ -480,8 +472,8 @@ void main()
 	int cu = ct->u;
 	int cv = ct->v;
 	io_registers.a.TEXCOORD = 0
-	  | TEXCOORD__t_coordinate(v_to_t(cv, dimension))
-	  | TEXCOORD__s_coordinate(u_to_s(cu, dimension));
+	  | TEXCOORD__t_coordinate(v_to_t(cv, height))
+	  | TEXCOORD__s_coordinate(u_to_s(cu, width));
 
 	struct vertex_normal * cn = &majora_normal[obj->triangle[i].c.normal];
 	io_registers.a.NORMAL = 0

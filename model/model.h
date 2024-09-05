@@ -45,14 +45,3 @@ struct object {
   int quadrilateral_count;
   int material;
 };
-
-struct start_size_end {
-  uint8_t * start;
-  uint8_t * end;
-  int size;
-};
-
-struct pixel_palette {
-  struct start_size_end pixel;
-  struct start_size_end palette;
-};

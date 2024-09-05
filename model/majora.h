@@ -1,4 +1,4 @@
-#include "model.h"
+#include "model/model.h"
 
 // .6 fixed-point
 struct vertex_position majora_position[] = {
@@ -329,90 +329,6 @@ struct vertex_normal majora_normal[] = {
   {416, 7, 297},
   {13, -212, 466},
   {-14, -212, 466},
-};
-
-enum majora_material {
-  mtl_060067E0,
-  mtl_060077E0,
-  mtl_060079E0,
-  mtl_06007BE0,
-  mtl_06007DE0,
-  mtl_06007FE0,
-};
-
-struct pixel_palette majora_pixel_palette[] = {
-  [mtl_060067E0] = {
-    .pixel = {
-      .start = (uint8_t *)&_binary_060067E0_data_start,
-      .end = (uint8_t *)&_binary_060067E0_data_end,
-      .size = (int)&_binary_060067E0_data_size,
-    },
-    .palette = {
-      .start = (uint8_t *)&_binary_060067E0_data_pal_start,
-      .end = (uint8_t *)&_binary_060067E0_data_pal_end,
-      .size = (int)&_binary_060067E0_data_pal_size,
-    },
-  },
-  [mtl_060077E0] = {
-    .pixel = {
-      .start = (uint8_t *)&_binary_060077E0_data_start,
-      .end = (uint8_t *)&_binary_060077E0_data_end,
-      .size = (int)&_binary_060077E0_data_size,
-    },
-    .palette = {
-      .start = (uint8_t *)&_binary_060077E0_data_pal_start,
-      .end = (uint8_t *)&_binary_060077E0_data_pal_end,
-      .size = (int)&_binary_060077E0_data_pal_size,
-    },
-  },
-  [mtl_060079E0] = {
-    .pixel = {
-      .start = (uint8_t *)&_binary_060079E0_data_start,
-      .end = (uint8_t *)&_binary_060079E0_data_end,
-      .size = (int)&_binary_060079E0_data_size,
-    },
-    .palette = {
-      .start = (uint8_t *)&_binary_060079E0_data_pal_start,
-      .end = (uint8_t *)&_binary_060079E0_data_pal_end,
-      .size = (int)&_binary_060079E0_data_pal_size,
-    },
-  },
-  [mtl_06007BE0] = {
-    .pixel = {
-      .start = (uint8_t *)&_binary_06007BE0_data_start,
-      .end = (uint8_t *)&_binary_06007BE0_data_end,
-      .size = (int)&_binary_06007BE0_data_size,
-    },
-    .palette = {
-      .start = (uint8_t *)&_binary_06007BE0_data_pal_start,
-      .end = (uint8_t *)&_binary_06007BE0_data_pal_end,
-      .size = (int)&_binary_06007BE0_data_pal_size,
-    },
-  },
-  [mtl_06007DE0] = {
-    .pixel = {
-      .start = (uint8_t *)&_binary_06007DE0_data_start,
-      .end = (uint8_t *)&_binary_06007DE0_data_end,
-      .size = (int)&_binary_06007DE0_data_size,
-    },
-    .palette = {
-      .start = (uint8_t *)&_binary_06007DE0_data_pal_start,
-      .end = (uint8_t *)&_binary_06007DE0_data_pal_end,
-      .size = (int)&_binary_06007DE0_data_pal_size,
-    },
-  },
-  [mtl_06007FE0] = {
-    .pixel = {
-      .start = (uint8_t *)&_binary_06007FE0_data_start,
-      .end = (uint8_t *)&_binary_06007FE0_data_end,
-      .size = (int)&_binary_06007FE0_data_size,
-    },
-    .palette = {
-      .start = (uint8_t *)&_binary_06007FE0_data_pal_start,
-      .end = (uint8_t *)&_binary_06007FE0_data_pal_end,
-      .size = (int)&_binary_06007FE0_data_pal_size,
-    },
-  },
 };
 
 struct triangle majora_1_triangle[] = {

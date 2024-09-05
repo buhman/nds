@@ -31,13 +31,14 @@ OBJDUMP = $(TARGET)objdump
 LIBGCC = $(shell $(CC) -print-file-name=libgcc.a)
 
 define BUILD_BINARY_O
+	cd $(dir $<) ; \
 	$(OBJCOPY) \
 		-I binary $(OBJARCH) \
 		--rename-section .data=.data.$(basename $@) \
-		$< $@
+		$(notdir $<) $(notdir $@)
 endef
 
-as_obj_binary = _binary_$(subst .,_,$(subst /,_,$(1)))
+as_obj_binary = _binary_$(subst .,_,$(subst /,_,$(notdir $(1))))
 
 define BUILD_BINARY_H
 	@echo gen $@

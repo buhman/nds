@@ -108,35 +108,6 @@ def render_object(prefix, object_name, d, material):
 
     yield "};"
 
-def render_pixel_palette(prefix, newmtl, mapkd):
-    name, _ext = mapkd.name.rsplit('.', maxsplit=1)
-    pixel_name = f"{name}_data"
-    palette_name = f"{name}_data_pal"
-
-    yield f"[{newmtl.name}] = {{"
-    yield ".pixel = {"
-    yield f".start = (uint8_t *)&_binary_{pixel_name}_start,"
-    yield f".end = (uint8_t *)&_binary_{pixel_name}_end,"
-    yield f".size = (int)&_binary_{pixel_name}_size,"
-    yield "},"
-    yield ".palette = {"
-    yield f".start = (uint8_t *)&_binary_{palette_name}_start,"
-    yield f".end = (uint8_t *)&_binary_{palette_name}_end,"
-    yield f".size = (int)&_binary_{palette_name}_size,"
-    yield "},"
-    yield "},"
-
-def render_materials(prefix, newmtl_mapkd):
-    yield f"enum {prefix}_material {{"
-    for newmtl, mapkd in newmtl_mapkd:
-        yield f"{newmtl.name},";
-    yield "};"
-
-    yield f"struct pixel_palette {prefix}_pixel_palette[] = {{"
-    for newmtl, mapkd in newmtl_mapkd:
-        yield from render_pixel_palette(prefix, newmtl, mapkd)
-    yield "};"
-
 def render_header():
     yield '#include "model.h"'
     yield ""
@@ -151,22 +122,6 @@ render(render_header())
 render(render_vertex_positions(prefix, vertices[VertexPosition]))
 render(render_vertex_texture(prefix, vertices[VertexTexture]))
 render(render_vertex_normals(prefix, vertices[VertexNormal]))
-
-materials_by_lib_name = set((m.lib, m.name) for m in materials.values())
-material_names = set()
-for _, name in materials_by_lib_name:
-    assert name not in material_names
-    material_names.add(name)
-material_libs = set(lib for lib, _ in materials_by_lib_name)
-for material_lib in material_libs:
-    with open(material_lib) as f:
-        buf = f.read()
-    newmtl_mapkd = [
-        (newmtl, mapkd)
-        for (newmtl, mapkd) in parse_mtl_file(buf)
-        if newmtl.name in material_names
-    ]
-    render(render_materials(prefix, newmtl_mapkd))
 
 for object_name, d in faces.items():
     object_prefix = '_'.join((prefix, object_name))

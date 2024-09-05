@@ -2,10 +2,7 @@ OPT = -Os
 
 all: cartridge.bin
 
-phony: res
-
-res:
-	make -C res/
+phony:
 
 arm9/%.bin: phony
 	make -C arm9/ $(notdir $@)
@@ -28,4 +25,4 @@ OBJARCH = -O elf32-littlearm -B armv4t
 LDSCRIPT = cartridge.lds
 include common.mk
 
-.PHONY: phony res
+.PHONY: phony

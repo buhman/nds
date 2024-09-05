@@ -10,6 +10,9 @@ arm9/%.bin: phony
 arm7/%.bin: phony
 	make -C arm7/ $(notdir $@)
 
+registers:
+	make -C registers/
+
 DEFAULT = header.o arm7/arm7.bin.o
 
 triangle.elf: $(DEFAULT) arm9/triangle.bin.o
@@ -25,4 +28,4 @@ OBJARCH = -O elf32-littlearm -B armv4t
 LDSCRIPT = cartridge.lds
 include common.mk
 
-.PHONY: phony
+.PHONY: phony registers

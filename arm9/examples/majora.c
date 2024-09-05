@@ -203,12 +203,6 @@ void main()
   io_registers.a.MTX_MODE = MTX_MODE__matrix_mode__projection;
   io_registers.a.MTX_IDENTITY = 0;
 
-  /*
-  io_registers.a.MTX_SCALE = ((192 << 12) / (256)) / 2;
-  io_registers.a.MTX_SCALE = 0.5 * 4096;
-  io_registers.a.MTX_SCALE = 0.5 * 4096;
-  */
-
   // load a symmetric perspective matrix, with aspect ratio correction
   io_registers.a.MTX_LOAD_4X4 = (192 << 12) / 256;
   io_registers.a.MTX_LOAD_4X4 = 0;
@@ -266,7 +260,7 @@ void main()
   // normalized 45° vector
   int c = 0.57735 * 512;
 
-  // lighting
+  // lighting vectors and colors for 3 directional lights
   io_registers.a.LIGHT_VECTOR = 0
     | LIGHT_VECTOR__light_number(0)
     | LIGHT_VECTOR__decimal_z(-c)
@@ -303,7 +297,7 @@ void main()
     | LIGHT_COLOR__green(31)
     | LIGHT_COLOR__red(31);
 
-  // degrees
+  // integer degrees
   int theta = 0;
 
   while (1) {
@@ -364,8 +358,7 @@ void main()
     io_registers.a.MTX_MULT_3X3 = sin2;
     io_registers.a.MTX_MULT_3X3 = cos2;
 
-    // cube faces
-
+    // lighting parameters
     io_registers.a.DIF_AMB = 0
       | DIF_AMB__ambient_blue(3)
       | DIF_AMB__ambient_green(3)
@@ -379,13 +372,6 @@ void main()
       | SPE_EMI__specular_green(25)
       | SPE_EMI__specular_red(25);
 
-    /*
-    io_registers.a.COLOR = 0
-      | COLOR__blue(31)
-      | COLOR__green(31)
-      | COLOR__red(31);
-    */
-
     // the following polygons are fully opaque; backface culling is
     // enabled
     io_registers.a.POLYGON_ATTR = 0
@@ -398,8 +384,7 @@ void main()
       | POLYGON_ATTR__light_1__enable
       | POLYGON_ATTR__light_0__enable;
 
-    // the following vertices are a triangles
-
+    // the following vertices are triangles
     io_registers.a.BEGIN_VTXS = BEGIN_VTXS__type__triangle;
 
     for (int oix = 0; oix < (sizeof (object)) / (sizeof (struct object *)); oix++) {
@@ -428,12 +413,9 @@ void main()
 	// "When texture mapping, the Geometry Engine works faster if you
 	// issue commands in the following order: TexCoord→Normal→Vertex."
 	struct vertex_texture * at = &majora_texture[obj->triangle[i].a.texture];
-	// convert from UV space to ST space
-	int au = at->u;
-	int av = at->v;
 	io_registers.a.TEXCOORD = 0
-	  | TEXCOORD__t_coordinate(v_to_t(av, height))
-	  | TEXCOORD__s_coordinate(u_to_s(au, width));
+	  | TEXCOORD__t_coordinate(v_to_t(at->v, height))
+	  | TEXCOORD__s_coordinate(u_to_s(at->u, width));
 
 	struct vertex_normal * an = &majora_normal[obj->triangle[i].a.normal];
 	io_registers.a.NORMAL = 0
@@ -448,12 +430,9 @@ void main()
 	  | VTX_10__x_coordinate(a->x);
 
 	struct vertex_texture * bt = &majora_texture[obj->triangle[i].b.texture];
-	// convert from UV space to ST space
-	int bu = bt->u;
-	int bv = bt->v;
 	io_registers.a.TEXCOORD = 0
-	  | TEXCOORD__t_coordinate(v_to_t(bv, height))
-	  | TEXCOORD__s_coordinate(u_to_s(bu, width));
+	  | TEXCOORD__t_coordinate(v_to_t(bt->v, height))
+	  | TEXCOORD__s_coordinate(u_to_s(bt->u, width));
 
 	struct vertex_normal * bn = &majora_normal[obj->triangle[i].b.normal];
 	io_registers.a.NORMAL = 0
@@ -468,12 +447,9 @@ void main()
 	  | VTX_10__x_coordinate(b->x);
 
 	struct vertex_texture * ct = &majora_texture[obj->triangle[i].c.texture];
-	// convert from UV space to ST space
-	int cu = ct->u;
-	int cv = ct->v;
 	io_registers.a.TEXCOORD = 0
-	  | TEXCOORD__t_coordinate(v_to_t(cv, height))
-	  | TEXCOORD__s_coordinate(u_to_s(cu, width));
+	  | TEXCOORD__t_coordinate(v_to_t(ct->v, height))
+	  | TEXCOORD__s_coordinate(u_to_s(ct->u, width));
 
 	struct vertex_normal * cn = &majora_normal[obj->triangle[i].c.normal];
 	io_registers.a.NORMAL = 0
@@ -490,7 +466,7 @@ void main()
 
     }
 
-    // end of the triangle
+    // end of triangles
     io_registers.a.END_VTXS = 0;
 
     // wait for the geometry engine

@@ -20,6 +20,7 @@ triangle_rotating.elf: $(DEFAULT) arm9/triangle_rotating.bin.o
 texture.elf: $(DEFAULT) arm9/texture.bin.o
 cube.elf: $(DEFAULT) arm9/cube.bin.o
 icosphere.elf: $(DEFAULT) arm9/icosphere.bin.o
+majora.elf: $(DEFAULT) arm9/majora.bin.o
 
 TARGET = arm-none-eabi-
 AARCH = -march=armv4t -mlittle-endian

@@ -285,7 +285,7 @@
 "TEXIMAGE_PARAM","texture_coordinate_transformation_mode","31-30","do_not_transform_texture_coordinates","0b00",,
 "TEXIMAGE_PARAM","texture_coordinate_transformation_mode","31-30","texcoord_source","0b01",,
 "TEXIMAGE_PARAM","texture_coordinate_transformation_mode","31-30","normal_source","0b10",,
-"TEXIMAGE_PARAM","texture_coordinate_transformation_mode","31-30","vextex_source","0b11",,
+"TEXIMAGE_PARAM","texture_coordinate_transformation_mode","31-30","vertex_source","0b11",,
 "TEXIMAGE_PARAM","palette_color0_transparency",29,"palette_setting",0,,
 "TEXIMAGE_PARAM","palette_color0_transparency",29,"always_transparent",1,,
 "TEXIMAGE_PARAM","texture_format","28-26","no_texture",0,,

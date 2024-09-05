@@ -12,6 +12,7 @@ CFLAGS += -Wno-error=maybe-uninitialized
 CFLAGS += -Wno-error=unused-but-set-variable
 CFLAGS += -Wno-error=unused-variable
 CFLAGS += -Wno-aggressive-loop-optimizations
+CFLAGS += -fno-inline-small-functions
 
 CXXFLAGS += -fno-exceptions -fno-non-call-exceptions -fno-rtti -fno-threadsafe-statics
 

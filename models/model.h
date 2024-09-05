@@ -22,18 +22,37 @@ struct quadrilateral {
 };
 
 struct vertex_position { // signed 4.6 fixed point
-  uint16_t x;
-  uint16_t y;
-  uint16_t z;
+  int16_t x;
+  int16_t y;
+  int16_t z;
 };
 
 struct vertex_normal { // s.9 fixed point
-  uint16_t x;
-  uint16_t y;
-  uint16_t z;
+  int16_t x;
+  int16_t y;
+  int16_t z;
 };
 
 struct vertex_texture { // s.15 fixed point
-  uint16_t u;
-  uint16_t v;
+  int16_t u;
+  int16_t v;
+};
+
+struct object {
+  struct triangle * triangle;
+  struct quadrilateral * quadrilateral;
+  int triangle_count;
+  int quadrilateral_count;
+  int material;
+};
+
+struct start_size_end {
+  uint8_t * start;
+  uint8_t * end;
+  int size;
+};
+
+struct pixel_palette {
+  struct start_size_end pixel;
+  struct start_size_end palette;
 };

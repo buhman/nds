@@ -252,7 +252,7 @@
 #define TEXIMAGE_PARAM__texture_coordinate_transformation_mode__do_not_transform_texture_coordinates (0x0 << 30)
 #define TEXIMAGE_PARAM__texture_coordinate_transformation_mode__texcoord_source (0x1 << 30)
 #define TEXIMAGE_PARAM__texture_coordinate_transformation_mode__normal_source (0x2 << 30)
-#define TEXIMAGE_PARAM__texture_coordinate_transformation_mode__vextex_source (0x3 << 30)
+#define TEXIMAGE_PARAM__texture_coordinate_transformation_mode__vertex_source (0x3 << 30)
 #define TEXIMAGE_PARAM__palette_color0_transparency__palette_setting (0x0 << 29)
 #define TEXIMAGE_PARAM__palette_color0_transparency__always_transparent (0x1 << 29)
 #define TEXIMAGE_PARAM__texture_format__no_texture (0x0 << 26)

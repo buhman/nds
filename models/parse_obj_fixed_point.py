@@ -45,6 +45,19 @@ class Quadrilateral:
     c: IndexVTN
     d: IndexVTN
 
+@dataclass
+class Object:
+    name: str
+
+@dataclass
+class Material:
+    lib: str
+    name: str
+
+@dataclass
+class MtlLib:
+    name: str
+
 def parse_fixed_point(s):
     negative = s.startswith('-')
     s = s.removeprefix('-')
@@ -81,7 +94,7 @@ def int_minus_one(s):
     assert n >= 0
     return n
 
-def parse_vertex_indices(args):
+def _parse_vertex_indices(args):
     indices = args.split('/')
     assert len(indices) == 3, indices
     return IndexVTN(*map(int_minus_one, indices))
@@ -89,18 +102,33 @@ def parse_vertex_indices(args):
 def parse_face(args):
     vertices = args.split()
     if len(vertices) == 3:
-        yield Triangle(*map(parse_vertex_indices, vertices))
+        yield Triangle(*map(_parse_vertex_indices, vertices))
     elif len(vertices) == 4:
-        yield Quadrilateral(*map(parse_vertex_indices, vertices))
+        yield Quadrilateral(*map(_parse_vertex_indices, vertices))
     else:
         assert False, (len(vertices), args)
+
+def parse_object(args):
+    name, = args.split()
+    yield Object(name)
+
+def parse_material(args):
+    name, = args.split()
+    yield Material(None, name)
+
+def parse_mtllib(args):
+    name, = args.split()
+    yield MtlLib(name)
 
 def parse_obj_line(line):
     prefixes = [
         ('v ', parse_vertex_position),
         ('vn ', parse_vertex_normal),
         ('vt ', parse_vertex_texture),
-        ('f ', parse_face)
+        ('f ', parse_face),
+        ('o ', parse_object),
+        ('usemtl ', parse_material),
+        ('mtllib ', parse_mtllib),
     ]
     for prefix, parser in prefixes:
         if line.startswith(prefix):
@@ -108,10 +136,31 @@ def parse_obj_line(line):
             yield from parser(args)
 
 def group_by_type(l):
-    grouped = defaultdict(list)
+    vertices = defaultdict(list)
+    current_object = None
+    faces = defaultdict(lambda: defaultdict(list))
+    materials = dict()
+    current_mtllib = None
     for i in l:
-        grouped[type(i)].append(i)
-    return dict(grouped)
+        if type(i) in {VertexPosition, VertexTexture, VertexNormal}:
+            vertices[type(i)].append(i)
+        elif type(i) in {Triangle, Quadrilateral}:
+            assert current_object is not None
+            faces[current_object.name][type(i)].append(i)
+        elif type(i) is Material:
+            assert current_object is not None
+            assert current_mtllib is not None
+            i.lib = current_mtllib.name
+            assert current_object.name not in materials
+            materials[current_object.name] = i
+        elif type(i) is Object:
+            current_object = i
+        elif type(i) is MtlLib:
+            current_mtllib = i
+        else:
+            assert False, type(i)
+
+    return dict(vertices), dict((k, dict(v)) for k, v in faces.items()), materials
 
 def parse_obj_file(buf):
     return group_by_type((

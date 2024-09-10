@@ -5,10 +5,10 @@
 #include "obj.h"
 #include "oam.h"
 
-#include "../res/player.data.h"
-#include "../res/player.data.pal.h"
-#include "../res/bowser.data.h"
-#include "../res/bowser.data.pal.h"
+#include "../texture/player.data.h"
+#include "../texture/player.data.pal.h"
+#include "../texture/bowser.data.h"
+#include "../texture/bowser.data.pal.h"
 
 static inline uint16_t rgb565(const uint8_t * buf)
 {
@@ -390,13 +390,28 @@ struct sign_v cos_table[360] = {
 
 void main()
 {
-  // 2d graphics engine A BG
-  io_registers.a.VRAMCNT = (1 << 31) | (1 << 24);
+#define REG_IME	(*(volatile uint32_t *)0x04000208)
+  REG_IME = 0;
 
-  io_registers.a.WVRAMCNT = 0;
+  // 2d graphics engine A BG
+  io_registers.a.VRAMCNT = (1 << 31) | (1 << 24)
+    | 0x80 << 16
+    | 0x80 << 8
+    | 0x80 << 0;
+
+  io_registers.a.WVRAMCNT = 0
+    | 0x80 << 16
+    | 0x80 << 8
+    | 0x80 << 0;
 
   // 2d graphics engine B OBJ
-  io_registers.a.VRAM_HI_CNT = (1 << 15) | (0b10 << 8);
+  io_registers.a.VRAM_HI_CNT = (1 << 15) | (0b10 << 8)
+    | 0x80 << 0;
+
+  io_registers.a.DISPCAPCNT = 0;
+
+  io_registers.a.MASTER_BRIGHT = (0b01 << 14) | 0b11111;
+  io_registers.b.MASTER_BRIGHT = (0b01 << 14) | 0b11111;
 
   io_registers.a.POWCNT = 0
     | POWCNT__lcd_output_destination__a_to_upper__b_to_lower
@@ -411,8 +426,8 @@ void main()
     | DISPCNT__bg_character_base_offset(0)
     | DISPCNT__display_mode__graphics_display
     | DISPCNT__bg0__enable
-    //| DISPCNT__display_selection_for_bg0__2d_graphics
-    | DISPCNT__display_selection_for_bg0__3d_graphics
+    | DISPCNT__display_selection_for_bg0__2d_graphics
+    //| DISPCNT__display_selection_for_bg0__3d_graphics
     | DISPCNT__bg_mode__text0_text1_text2_text3
     ;
 

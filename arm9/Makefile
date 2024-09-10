@@ -6,17 +6,17 @@ ALL = \
 
 all: arm9.bin
 
-OBJ = \
+2D_ENGINE_OBJ = \
 	start.o \
-	main.o \
-	../res/player.data.o \
-	../res/player.data.pal.o \
-	../res/bowser.data.o \
-	../res/bowser.data.pal.o
+	2d_engine.o \
+	../texture/player.data.o \
+	../texture/player.data.pal.o \
+	../texture/bowser.data.o \
+	../texture/bowser.data.pal.o
 
 include ../texture/texture.mk
 
-arm9.elf: $(OBJ)
+2d_engine.elf: $(2D_ENGINE_OBJ)
 
 triangle.elf: start.o examples/triangle.o
 

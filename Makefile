@@ -15,6 +15,7 @@ registers:
 
 DEFAULT = header.o arm7/arm7.bin.o
 
+2d_engine.elf: $(DEFAULT) arm9/2d_engine.bin.o
 triangle.elf: $(DEFAULT) arm9/triangle.bin.o
 triangle_rotating.elf: $(DEFAULT) arm9/triangle_rotating.bin.o
 texture.elf: $(DEFAULT) arm9/texture.bin.o

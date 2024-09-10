@@ -58,10 +58,12 @@ for name, offset, size in fields:
             print(f'{b:02x}', end='')
 
     pad = ' ' * (17 * 2 - size * 2)
-    if size == 4:
+    if name in {'game title', 'game code'}:
+        print(pad, buf[offset:offset+size], end='')
+    elif size == 4:
         n, = struct.unpack('<I', buf[offset:offset+size])
         print(pad, f"0x{n:08x}", end='')
-    if size == 2:
+    elif size == 2:
         n, = struct.unpack('<H', buf[offset:offset+size])
         print(pad, f"0x{n:04x}", end='')
     print()

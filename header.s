@@ -1,7 +1,7 @@
 	.section .text.header
 
 	.ascii "game title  " /* Game Title */
-	.ascii "AAAA"     /* Game Code */
+	.ascii "####"     /* Game Code */
 	.ascii "00"       /* Maker Code */
 	.byte 0x0         /* Unit Code */
 	.byte 0x0         /* Device type */

@@ -1,5 +1,3 @@
-__stack_end = ORIGIN(ram) + LENGTH(ram) - 4;
-
 __text_link_start = ADDR(.text);
 __text_link_end = ADDR(.text) + SIZEOF(.text);
 __text_load_start = LOADADDR(.text);

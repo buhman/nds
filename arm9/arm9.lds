@@ -49,3 +49,5 @@ SECTIONS
 
 INCLUDE "../symbols.lds"
 INCLUDE "addresses.lds"
+
+__stack_end = ORIGIN(ram) + LENGTH(ram) - 4;

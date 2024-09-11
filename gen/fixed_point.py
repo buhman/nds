@@ -30,6 +30,19 @@ class FixedPoint:
     def to_float(fp):
         return fp.sign * fp.value / fp.point
 
+def from_float(n):
+    if n == 0.0:
+        sign = 1
+        value = 0
+    else:
+        sign = -1 if n < 0 else 1
+        value = abs(round(n * (2 ** 32)))
+    point = 2 ** 32
+    return FixedPoint(sign, value, point)
+
+assert from_float(0.5).to_float() == 0.5
+assert from_float(1.5).to_fixed_point(16, 16).value == 98304
+
 def parse(s):
     sign = -1 if s.startswith('-') else 1
     s = s.removeprefix('-')

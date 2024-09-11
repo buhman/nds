@@ -23,6 +23,7 @@ cube.elf: $(DEFAULT) arm9/cube.bin.o
 icosphere.elf: $(DEFAULT) arm9/icosphere.bin.o
 majora.elf: $(DEFAULT) arm9/majora.bin.o
 ulala.elf: $(DEFAULT) arm9/ulala.bin.o
+happy_mask_salesman.elf: $(DEFAULT) arm9/happy_mask_salesman.bin.o
 
 TARGET = arm-none-eabi-
 AARCH = -march=armv4t -mlittle-endian

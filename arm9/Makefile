@@ -64,6 +64,39 @@ examples/ulala.c: $(patsubst %.o,%.h,$(ULALA_RES))
 ulala.elf: start.o examples/ulala.o ../math/cos_table_fp12.o ../math/cos.o $(ULALA_RES)
 
 
+HAPPY_MASK_SALESMAN_RES = \
+	../model/happy_mask_salesman/mask_00_8A00.data.o \
+	../model/happy_mask_salesman/mask_01_9200.data.o \
+	../model/happy_mask_salesman/mask_02_9A00.data.o \
+	../model/happy_mask_salesman/mask_03_A200.data.o \
+	../model/happy_mask_salesman/mask_04_AA00.data.o \
+	../model/happy_mask_salesman/mask_05_B200.data.o \
+	../model/happy_mask_salesman/mask_06_BA00.data.o \
+	../model/happy_mask_salesman/mask_07_C200.data.o \
+	../model/happy_mask_salesman/mask_08_CA00.data.o \
+	../model/happy_mask_salesman/mask_09_D200.data.o \
+	../model/happy_mask_salesman/maskmaster_00_0.data.o \
+	../model/happy_mask_salesman/maskmaster_01_4A00.data.o \
+	../model/happy_mask_salesman/maskmaster_e00_6A00.data.o \
+	../model/happy_mask_salesman/maskmaster_m00_7A00.data.o \
+	../model/happy_mask_salesman/mask_00_8A00.data.pal.o \
+	../model/happy_mask_salesman/mask_01_9200.data.pal.o \
+	../model/happy_mask_salesman/mask_02_9A00.data.pal.o \
+	../model/happy_mask_salesman/mask_03_A200.data.pal.o \
+	../model/happy_mask_salesman/mask_04_AA00.data.pal.o \
+	../model/happy_mask_salesman/mask_05_B200.data.pal.o \
+	../model/happy_mask_salesman/mask_06_BA00.data.pal.o \
+	../model/happy_mask_salesman/mask_07_C200.data.pal.o \
+	../model/happy_mask_salesman/mask_08_CA00.data.pal.o \
+	../model/happy_mask_salesman/mask_09_D200.data.pal.o \
+	../model/happy_mask_salesman/maskmaster_00_0.data.pal.o \
+	../model/happy_mask_salesman/maskmaster_01_4A00.data.pal.o \
+	../model/happy_mask_salesman/maskmaster_e00_6A00.data.pal.o \
+	../model/happy_mask_salesman/maskmaster_m00_7A00.data.pal.o
+
+examples/happy_mask_salesman.c: $(patsubst %.o,%.h,$(HAPPY_MASK_SALESMAN_RES))
+happy_mask_salesman.elf: start.o examples/happy_mask_salesman.o ../math/cos_table_fp12.o ../math/cos.o $(HAPPY_MASK_SALESMAN_RES)
+
 CFLAGS += -I../include -I../
 
 include arm9.mk

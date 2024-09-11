@@ -125,6 +125,7 @@ def group_by_type(l):
     faces = defaultdict(lambda: defaultdict(list))
     materials = dict()
     current_mtllib = None
+    multi_material_index = 0
     for i in l:
         if type(i) in {VertexPosition, VertexTexture, VertexNormal}:
             vertices[type(i)].append(i)
@@ -135,9 +136,15 @@ def group_by_type(l):
             assert current_object is not None
             assert current_mtllib is not None
             i.lib = current_mtllib.name
-            assert current_object.name not in materials, (current_object.name, materials)
+            if current_object.name in materials:
+                if multi_material_index != 0:
+                    current_object.name = current_object.name[:-4]
+                current_object.name += f"_{multi_material_index:03}"
+                multi_material_index += 1
+            assert current_object.name not in materials
             materials[current_object.name] = i
         elif type(i) is Object:
+            multi_material_index = 0
             current_object = i
         elif type(i) is MtlLib:
             current_mtllib = i

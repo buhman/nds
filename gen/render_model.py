@@ -1,6 +1,9 @@
 from dataclasses import astuple
 import sys
 from generate import renderer
+import math
+
+import fixed_point
 
 from parse_obj import parse_obj_file
 from parse_obj import VertexPosition
@@ -33,6 +36,17 @@ def render_triangles(prefix, faces):
 def render_quadrilateral(prefix, faces):
     yield from render_faces(prefix, "quadrilateral", faces)
 
+def unit_vector(vec):
+    x = vec.x.to_float()
+    y = vec.y.to_float()
+    z = vec.z.to_float()
+    norm = math.sqrt(x ** 2 + y ** 2 + z ** 2)
+    return type(vec)(
+        fixed_point.parse(str(x / norm)),
+        fixed_point.parse(str(y / norm)),
+        fixed_point.parse(str(z / norm))
+    )
+
 def xyz(vec):
     return (vec.x, vec.y, vec.z)
 
@@ -57,7 +71,7 @@ def render_vertex(profile_item, vertex_tuple):
 def render_vertices(profile_item, prefix, name, vertices):
     yield f"// {profile_item.to_str()}"
     yield f"vertex_{name} {prefix}_{name}[] = {{"
-    for vertex in vertices:
+    for i, vertex in enumerate(vertices):
         yield from render_vertex(profile_item, vertex)
     yield "};"
 
@@ -71,7 +85,7 @@ def render_vertex_normals(profile, prefix, vertex_normals):
     yield from render_vertices(profile.normal,
                                prefix,
                                "normal",
-                               map(xyz, vertex_normals))
+                               map(xyz, map(unit_vector, vertex_normals)))
 
 def render_vertex_texture(profile, prefix, vertex_textures):
     yield from render_vertices(profile.texture,

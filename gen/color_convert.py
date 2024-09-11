@@ -66,7 +66,27 @@ if palette is None:
         convert_colors(f, pixels)
 else:
     with open(out_file, 'wb') as f:
-        for pixel in pixels:
-            f.write(struct.pack("<B", pixel))
+        if len(palette) <= 4:
+            for i in range(len(pixels) // 4):
+                a = pixels[i * 4 + 0]
+                b = pixels[i * 4 + 1]
+                c = pixels[i * 4 + 2]
+                d = pixels[i * 4 + 3]
+                assert a <= 3 and b <= 3 and c <= 3 and d <= 3, (a, b, c, d)
+                pixel = (d << 6) | (c << 4) | (b << 2) | (a << 0)
+                f.write(struct.pack("<B", pixel))
+        elif len(palette) <= 16:
+            for i in range(len(pixels) // 2):
+                a = pixels[i * 2 + 0]
+                b = pixels[i * 2 + 1]
+                assert a <= 15 and b <= 15, (a, b)
+                pixel = (b << 4) | (a << 0)
+                f.write(struct.pack("<B", pixel))
+        elif len(palette) <= 256:
+            for pixel in pixels:
+                assert pixel <= 255
+                f.write(struct.pack("<B", pixel))
+        else:
+            assert False, len(palette)
     with open(out_file + '.pal', 'wb') as f:
         convert_colors(f, [(*c, 255) for c in palette])

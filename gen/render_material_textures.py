@@ -45,7 +45,6 @@ class Offset:
 
 def round_up_colors(name, colors):
     assert colors != 0, (name, colors)
-    return 256
     if colors <= 4:
         return 4
     if colors <= 16:

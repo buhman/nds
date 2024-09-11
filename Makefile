@@ -1,4 +1,4 @@
-OPT = -Os
+OPT = -O3
 
 all: cartridge.bin
 

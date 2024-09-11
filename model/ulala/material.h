@@ -102,14 +102,14 @@ struct material_descriptor material[] = {
       .start = (uint8_t *)&_binary_p_ref_or_data_pal_start,
       .size = (int)&_binary_p_ref_or_data_pal_size,
       .vram_offset = 1472,
-      .palette_size = 256,
+      .palette_size = 4,
     },
   },
   [u_lb] = {
     .pixel = {
       .start = (uint8_t *)&_binary_u_lb_data_start,
       .size = (int)&_binary_u_lb_data_size,
-      .vram_offset = 95232,
+      .vram_offset = 92160,
       .width = 64,
       .height = 64,
     },

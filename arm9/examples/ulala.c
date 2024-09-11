@@ -461,8 +461,8 @@ void main()
     while (io_registers.a.GXSTAT & GXSTAT__geometry_engine_busy);
 
     // wait for the end of the current frame
-    while (io_registers.a.VCOUNT != 262);
-    while (io_registers.a.VCOUNT == 262);
+    //while (io_registers.a.VCOUNT != 262);
+    //while (io_registers.a.VCOUNT == 262);
 
     // swap buffers
     io_registers.a.SWAP_BUFFERS = 0;

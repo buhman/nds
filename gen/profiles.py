@@ -22,7 +22,7 @@ class FloatingPoint:
 profiles = {}
 
 profiles["nds"] = Profile(
-    position = FixedPointBits(4, 6),  # 4.6
+    position = FixedPointBits(3, 12), # 3.12
     normal   = FixedPointBits(0, 9),  # 0.9
     texture  = FixedPointBits(1, 14), # 1.14
 )

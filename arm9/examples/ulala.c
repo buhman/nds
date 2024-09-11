@@ -409,10 +409,11 @@ void main()
 	  | NORMAL__x_component(an->x);
 
 	struct vertex_position * a = &model->position[obj->triangle[i].a.position];
-	io_registers.a.VTX_10 = 0
-	  | VTX_10__z_coordinate(a->z)
-	  | VTX_10__y_coordinate(a->y)
-	  | VTX_10__x_coordinate(a->x);
+	io_registers.a.VTX_16 = 0
+	  | VTX_16__0__y_coordinate(a->y)
+	  | VTX_16__0__x_coordinate(a->x);
+	io_registers.a.VTX_16 = 0
+	  | VTX_16__1__z_coordinate(a->z);
 
 	struct vertex_texture * bt = &model->texture[obj->triangle[i].b.texture];
 	io_registers.a.TEXCOORD = 0
@@ -426,10 +427,11 @@ void main()
 	  | NORMAL__x_component(bn->x);
 
 	struct vertex_position * b = &model->position[obj->triangle[i].b.position];
-	io_registers.a.VTX_10 = 0
-	  | VTX_10__z_coordinate(b->z)
-	  | VTX_10__y_coordinate(b->y)
-	  | VTX_10__x_coordinate(b->x);
+	io_registers.a.VTX_16 = 0
+	  | VTX_16__0__y_coordinate(b->y)
+	  | VTX_16__0__x_coordinate(b->x);
+	io_registers.a.VTX_16 = 0
+	  | VTX_16__1__z_coordinate(b->z);
 
 	struct vertex_texture * ct = &model->texture[obj->triangle[i].c.texture];
 	io_registers.a.TEXCOORD = 0
@@ -443,10 +445,11 @@ void main()
 	  | NORMAL__x_component(cn->x);
 
 	struct vertex_position * c = &model->position[obj->triangle[i].c.position];
-	io_registers.a.VTX_10 = 0
-	  | VTX_10__z_coordinate(c->z)
-	  | VTX_10__y_coordinate(c->y)
-	  | VTX_10__x_coordinate(c->x);
+	io_registers.a.VTX_16 = 0
+	  | VTX_16__0__y_coordinate(c->y)
+	  | VTX_16__0__x_coordinate(c->x);
+	io_registers.a.VTX_16 = 0
+	  | VTX_16__1__z_coordinate(c->z);
       }
 
     }

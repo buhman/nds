@@ -15,32 +15,32 @@ SECTIONS
     *(.text)
     *(.text.*)
     . = ALIGN(32);
-  } >arm7_exclusive_internal_work_ram AT>main_memory
+  } > arm7_exclusive_internal_work_ram AT> main_memory
 
   .data ALIGN(4) :
   {
     *(.data)
     *(.data.*)
-  } >arm7_exclusive_internal_work_ram AT>main_memory
+  } > arm7_exclusive_internal_work_ram AT> main_memory
 
   .rodata ALIGN(4) :
   {
     *(.rodata)
     *(.rodata.*)
-  } >arm7_exclusive_internal_work_ram AT>main_memory
+  } > arm7_exclusive_internal_work_ram AT> main_memory
 
   .ctors ALIGN(4) :
   {
     KEEP(*(.ctors))
     KEEP(*(.ctors.*))
-  } >arm7_exclusive_internal_work_ram AT>main_memory
+  } > arm7_exclusive_internal_work_ram AT> main_memory
 
   .bss ALIGN(4) (NOLOAD) :
   {
     *(.bss)
     *(.bss.*)
     *(COMMON)
-  } >arm7_exclusive_internal_work_ram
+  } > arm7_exclusive_internal_work_ram
 
   /DISCARD/ :
   {

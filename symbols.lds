@@ -10,8 +10,5 @@ __rodata_link_start = ADDR(.rodata);
 __rodata_link_end = ADDR(.rodata) + SIZEOF(.rodata);
 __rodata_load_start = LOADADDR(.rodata);
 
-__ctors_link_start = ADDR(.ctors);
-__ctors_link_end = ADDR(.ctors) + SIZEOF(.ctors);
-
 __bss_link_start = ADDR(.bss);
 __bss_link_end = ADDR(.bss) + SIZEOF(.bss);

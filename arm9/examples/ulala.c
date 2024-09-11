@@ -287,8 +287,8 @@ void main()
     io_registers.a.MTX_IDENTITY = 0;
 
     io_registers.a.MTX_TRANS = 0;
-    io_registers.a.MTX_TRANS = (int)(-0.7 * (float)(1 << 12));
-    io_registers.a.MTX_TRANS = (int)(-0.1 * (float)(1 << 12));
+    io_registers.a.MTX_TRANS = (int)(-1.0 * (float)(1 << 12));
+    io_registers.a.MTX_TRANS = (int)(0.15 * (float)(1 << 12));
 
 
     // multiply by a y-axis rotation

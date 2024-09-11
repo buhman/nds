@@ -41,10 +41,28 @@ MAJORA_RES = \
 	../texture/060077E0.data.o \
 	../texture/06007BE0.data.o \
 	../texture/06007FE0.data.o
-
 examples/majora.c: $(patsubst %.o,%.h,$(MAJORA_RES))
-
 majora.elf: start.o examples/majora.o ../math/cos_table_fp12.o ../math/cos.o $(MAJORA_RES)
+
+ULALA_RES = \
+	../model/ulala/eye.data.o \
+	../model/ulala/ha.data.o \
+	../model/ulala/p03b_hair.data.o \
+	../model/ulala/p_face.data.o \
+	../model/ulala/p_nomal_mix.data.o \
+	../model/ulala/p_ref_or.data.o \
+	../model/ulala/u_lb.data.o \
+	../model/ulala/eye.data.pal.o \
+	../model/ulala/ha.data.pal.o \
+	../model/ulala/p03b_hair.data.pal.o \
+	../model/ulala/p_face.data.pal.o \
+	../model/ulala/p_nomal_mix.data.pal.o \
+	../model/ulala/p_ref_or.data.pal.o \
+	../model/ulala/u_lb.data.pal.o
+
+examples/ulala.c: $(patsubst %.o,%.h,$(ULALA_RES))
+ulala.elf: start.o examples/ulala.o ../math/cos_table_fp12.o ../math/cos.o $(ULALA_RES)
+
 
 CFLAGS += -I../include -I../
 

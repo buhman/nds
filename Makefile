@@ -22,11 +22,18 @@ texture.elf: $(DEFAULT) arm9/texture.bin.o
 cube.elf: $(DEFAULT) arm9/cube.bin.o
 icosphere.elf: $(DEFAULT) arm9/icosphere.bin.o
 majora.elf: $(DEFAULT) arm9/majora.bin.o
+ulala.elf: $(DEFAULT) arm9/ulala.bin.o
 
 TARGET = arm-none-eabi-
 AARCH = -march=armv4t -mlittle-endian
 OBJARCH = -O elf32-littlearm -B armv4t
 LDSCRIPT = cartridge.lds
 include common.mk
+
+%.data.h: %.data
+	$(BUILD_BINARY_H)
+
+%.data.pal.h: %.data.pal
+	$(BUILD_BINARY_H)
 
 .PHONY: phony registers

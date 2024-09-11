@@ -45,9 +45,10 @@ class Offset:
 
 def round_up_colors(name, colors):
     assert colors != 0, (name, colors)
+    return 256
     if colors <= 4:
         return 4
-    elif colors <= 16:
+    if colors <= 16:
         return 16
     elif colors <= 256:
         return 256
@@ -58,8 +59,6 @@ def image_metadata(mapkd):
     path = texture_path(mapkd.name)
     with Image.open(path) as im:
         dimensions = im.size
-        if im.palette is None:
-            print(path)
         colors = len(im.palette.colors)
     return dimensions, colors
 
@@ -77,6 +76,7 @@ def render_material(offset, mapkd):
     # pixel descriptor
     yield from render_pixel_descriptor(offset, mapkd, dimensions)
     pixel_size = bytes_per_pixel(palette_size) * dimensions[0] * dimensions[1]
+    #pixel_size = 2 * dimensions[0] * dimensions[1]
     assert int(pixel_size) == pixel_size
     offset.pixel += round_up_n(int(pixel_size), 8)
 
@@ -103,6 +103,7 @@ def render_header():
 
 if __name__ == "__main__":
     material_filenames = sys.argv[1:]
+    assert material_filenames
     newmtl_mapkd = []
     for material_filename in material_filenames:
         with open(material_filename) as f:

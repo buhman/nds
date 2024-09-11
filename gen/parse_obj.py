@@ -1,13 +1,8 @@
 from collections import defaultdict
 from dataclasses import dataclass
 import string
-
-@dataclass
-class FixedPoint:
-    negative: bool
-    integer: int
-    fraction: int
-    point: int
+from fixed_point import FixedPoint
+import fixed_point
 
 @dataclass
 class VertexPosition:
@@ -58,24 +53,10 @@ class Material:
 class MtlLib:
     name: str
 
-def parse_fixed_point(s):
-    negative = s.startswith('-')
-    s = s.removeprefix('-')
-    integer, fraction = s.split('.')
-    assert all(c in string.digits for c in integer), integer
-    assert all(c in string.digits for c in fraction), fraction
-    assert len(integer) > 0 and len(fraction) > 0, s
-    return FixedPoint(
-        negative,
-        int(integer),
-        int(fraction),
-        10 ** len(fraction)
-    )
-
 def parse_fixed_point_vector(args, n):
     split = args.split()
     assert len(split) == n, (n, split)
-    return tuple(map(parse_fixed_point, split))
+    return tuple(map(fixed_point.parse, split))
 
 def parse_vertex_position(args):
     coordinates = parse_fixed_point_vector(args, 3)
@@ -109,7 +90,7 @@ def parse_face(args):
         assert False, (len(vertices), args)
 
 def safe(s):
-    return s.replace('-', '_').replace('.', '_')
+    return s.replace('-', '_').replace('.', '_').replace(':', '_')
 
 def parse_object(args):
     name, = args.split()

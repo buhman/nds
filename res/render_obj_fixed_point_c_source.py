@@ -12,8 +12,8 @@ from parse_obj_fixed_point import Quadrilateral
 from parse_material import parse_mtl_file
 
 vertex_position_fraction_bits = 6 # 4.6
-vertex_normal_fraction_bits = 9 # s.9
-vertex_texture_fraction_bits = 14 # s.15
+vertex_normal_fraction_bits = 9   # 0.9
+vertex_texture_fraction_bits = 14 # 1.14
 
 def convert_fixed_point(fp, fraction_bits):
     point = 2 ** fraction_bits

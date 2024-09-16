@@ -5,7 +5,7 @@
 	.ascii "00"       /* Maker Code */
 	.byte 0x0         /* Unit Code */
 	.byte 0x0         /* Device type */
-	.byte 0x0         /* Device capacity */
+	.byte 0x1         /* Device capacity */
 	.fill 7,1,0x0     /* Reserved */
 	.byte 0x0         /* Reserved */
 	.byte 0x0         /* NDS region */

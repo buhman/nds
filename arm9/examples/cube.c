@@ -1,7 +1,7 @@
 #include "io_registers.h"
 #include "bits.h"
 
-#include "models/cube.h"
+#include "model/cube.h"
 #include "math/math.h"
 
 static const uint16_t face_colors[6] = {
@@ -159,29 +159,31 @@ void main()
     // the following vertices are a quadrilateral
     io_registers.a.BEGIN_VTXS = BEGIN_VTXS__type__quadrilateral;
 
+    const union quadrilateral * quadrilateral = cube_Cube_quadrilateral;
+
     // cube faces
     for (int i = 0; i < 6; i++) {
       io_registers.a.COLOR = face_colors[i];
 
-      struct vertex_position * a = &cube_positions[cube_quadrilaterals[i].a.position];
+      const struct vertex_position * a = &cube_position[quadrilateral[i].a.position];
       io_registers.a.VTX_10 = 0
 	| VTX_10__z_coordinate(a->z)
 	| VTX_10__y_coordinate(a->y)
 	| VTX_10__x_coordinate(a->x);
 
-      struct vertex_position * b = &cube_positions[cube_quadrilaterals[i].b.position];
+      const struct vertex_position * b = &cube_position[quadrilateral[i].b.position];
       io_registers.a.VTX_10 = 0
 	| VTX_10__z_coordinate(b->z)
 	| VTX_10__y_coordinate(b->y)
 	| VTX_10__x_coordinate(b->x);
 
-      struct vertex_position * c = &cube_positions[cube_quadrilaterals[i].c.position];
+      const struct vertex_position * c = &cube_position[quadrilateral[i].c.position];
       io_registers.a.VTX_10 = 0
 	| VTX_10__z_coordinate(c->z)
 	| VTX_10__y_coordinate(c->y)
 	| VTX_10__x_coordinate(c->x);
 
-      struct vertex_position * d = &cube_positions[cube_quadrilaterals[i].d.position];
+      const struct vertex_position * d = &cube_position[quadrilateral[i].d.position];
       io_registers.a.VTX_10 = 0
 	| VTX_10__z_coordinate(d->z)
 	| VTX_10__y_coordinate(d->y)

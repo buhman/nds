@@ -386,7 +386,7 @@ void main()
     struct model * model = &happy_mask_salesman_model;
 
     for (int object_ix = 0; object_ix < model->object_count; object_ix++) {
-      struct object * obj = model->object[object_ix];
+      const struct object * obj = model->object[object_ix];
       const int num_triangles = obj->triangle_count;
 
       int material_ix = obj->material;
@@ -411,54 +411,54 @@ void main()
       for (int i = 0; i < num_triangles; i++) {
 	// "When texture mapping, the Geometry Engine works faster if you
 	// issue commands in the following order: TexCoord→Normal→Vertex."
-	struct vertex_texture * at = &model->texture[obj->triangle[i].a.texture];
+	const struct vertex_texture * at = &model->texture[obj->triangle[i].a.texture];
 	io_registers.a.TEXCOORD = 0
 	  | TEXCOORD__t_coordinate(v_to_t(at->v, height))
 	  | TEXCOORD__s_coordinate(u_to_s(at->u, width));
 
-	struct vertex_normal * an = &model->normal[obj->triangle[i].a.normal];
+	const struct vertex_normal * an = &model->normal[obj->triangle[i].a.normal];
 	io_registers.a.NORMAL = 0
 	  | NORMAL__z_component(an->z)
 	  | NORMAL__y_component(an->y)
 	  | NORMAL__x_component(an->x);
 
-	struct vertex_position * a = &model->position[obj->triangle[i].a.position];
+	const struct vertex_position * a = &model->position[obj->triangle[i].a.position];
 	io_registers.a.VTX_16 = 0
 	  | VTX_16__0__y_coordinate(a->y)
 	  | VTX_16__0__x_coordinate(a->x);
 	io_registers.a.VTX_16 = 0
 	  | VTX_16__1__z_coordinate(a->z);
 
-	struct vertex_texture * bt = &model->texture[obj->triangle[i].b.texture];
+	const struct vertex_texture * bt = &model->texture[obj->triangle[i].b.texture];
 	io_registers.a.TEXCOORD = 0
 	  | TEXCOORD__t_coordinate(v_to_t(bt->v, height))
 	  | TEXCOORD__s_coordinate(u_to_s(bt->u, width));
 
-	struct vertex_normal * bn = &model->normal[obj->triangle[i].b.normal];
+	const struct vertex_normal * bn = &model->normal[obj->triangle[i].b.normal];
 	io_registers.a.NORMAL = 0
 	  | NORMAL__z_component(bn->z)
 	  | NORMAL__y_component(bn->y)
 	  | NORMAL__x_component(bn->x);
 
-	struct vertex_position * b = &model->position[obj->triangle[i].b.position];
+	const struct vertex_position * b = &model->position[obj->triangle[i].b.position];
 	io_registers.a.VTX_16 = 0
 	  | VTX_16__0__y_coordinate(b->y)
 	  | VTX_16__0__x_coordinate(b->x);
 	io_registers.a.VTX_16 = 0
 	  | VTX_16__1__z_coordinate(b->z);
 
-	struct vertex_texture * ct = &model->texture[obj->triangle[i].c.texture];
+	const struct vertex_texture * ct = &model->texture[obj->triangle[i].c.texture];
 	io_registers.a.TEXCOORD = 0
 	  | TEXCOORD__t_coordinate(v_to_t(ct->v, height))
 	  | TEXCOORD__s_coordinate(u_to_s(ct->u, width));
 
-	struct vertex_normal * cn = &model->normal[obj->triangle[i].c.normal];
+	const struct vertex_normal * cn = &model->normal[obj->triangle[i].c.normal];
 	io_registers.a.NORMAL = 0
 	  | NORMAL__z_component(cn->z)
 	  | NORMAL__y_component(cn->y)
 	  | NORMAL__x_component(cn->x);
 
-	struct vertex_position * c = &model->position[obj->triangle[i].c.position];
+	const struct vertex_position * c = &model->position[obj->triangle[i].c.position];
 	io_registers.a.VTX_16 = 0
 	  | VTX_16__0__y_coordinate(c->y)
 	  | VTX_16__0__x_coordinate(c->x);

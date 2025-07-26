@@ -13220,7 +13220,7 @@ struct object happy_mask_salesman_node_03D5E21E_geom_03D5E21E = {
   .material = material_0194E6CE,
 };
 
-struct object * happy_mask_salesman_object_list[] = {
+const struct object * happy_mask_salesman_object_list[] = {
   &happy_mask_salesman_node_0010E986_geom_0010E986,
   &happy_mask_salesman_node_00432028_001_geom_00432028_001,
   &happy_mask_salesman_node_00432028_001_geom_00432028_001_000,
@@ -13247,4 +13247,3 @@ struct model happy_mask_salesman_model = {
   .object = &happy_mask_salesman_object_list[0],
   .object_count = 17,
 };
-
